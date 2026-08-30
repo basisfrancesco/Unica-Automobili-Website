@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 
 const venereViews = [
-  { src: "/images/venere-front.png", label: "Tre quarti anteriore" },
-  { src: "/images/venere-side.png", label: "Profilo" },
-  { src: "/images/venere-rear.png", label: "Tre quarti posteriore" },
+  { src: "images/venere-front.png", label: "Tre quarti anteriore" },
+  { src: "images/venere-side.png", label: "Profilo" },
+  { src: "images/venere-rear.png", label: "Tre quarti posteriore" },
 ];
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Unica Automobili, torna all'inizio">
-          <img src="/images/unica-logo.jpeg" alt="" />
+          <img src="images/unica-logo.jpeg" alt="" />
           <span>UNICA <small>AUTOMOBILI</small></span>
         </a>
         <nav className={menuOpen ? "nav open" : "nav"} aria-label="Navigazione principale">
@@ -39,7 +39,7 @@ export default function Home() {
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-image" /><div className="hero-shade" />
+        <div className="hero-image" style={{ backgroundImage: "url('images/venere-front.png')" }} /><div className="hero-shade" />
         <div className="hero-copy">
           <p className="eyebrow">Automobili, una alla volta.</p>
           <h1>La forma italiana.<br /><em>Senza compromessi.</em></h1>
@@ -58,7 +58,7 @@ export default function Home() {
       <section className="venere" id="venere">
         <div className="model-heading">
           <p className="section-tag light">/ Modello 01</p>
-          <img src="/images/venere-logo.jpeg" alt="Venere" />
+          <img src="images/venere-logo.jpeg" alt="Venere" />
           <p>Gran Turismo, ricreata.</p>
         </div>
         <div className="viewer">
@@ -79,7 +79,7 @@ export default function Home() {
       </section>
 
       <section className="breadvan" id="breadvan">
-        <img src="/images/breadvan-preview.png" alt="Anteprima del progetto Unica Breadvan coperto da un telo" /><div className="breadvan-overlay" />
+        <img src="images/breadvan-preview.png" alt="Anteprima del progetto Unica Breadvan coperto da un telo" /><div className="breadvan-overlay" />
         <div className="breadvan-copy"><p className="section-tag light">/ Modello 02 — In sviluppo</p><h2>BREADVAN</h2><p>Una leggenda ribelle, reinterpretata sulla base della Ferrari 812 Superfast.</p><span>La storia sta per ricominciare.</span></div>
       </section>
 
@@ -91,7 +91,7 @@ export default function Home() {
 
       <footer id="contatti">
         <div className="footer-top"><div><p className="section-tag light">/ Inizia il tuo progetto</p><h2>Creiamo qualcosa<br />di <em>irripetibile.</em></h2></div><a href="mailto:atelier@unicaautomobili.it">atelier@unicaautomobili.it <span>↗</span></a></div>
-        <div className="footer-bottom"><div className="brand footer-brand"><img src="/images/unica-logo.jpeg" alt="" /><span>UNICA <small>AUTOMOBILI</small></span></div><p>Carrozzeria contemporanea italiana.</p><p>© {new Date().getFullYear()} Unica Automobili</p></div>
+        <div className="footer-bottom"><div className="brand footer-brand"><img src="images/unica-logo.jpeg" alt="" /><span>UNICA <small>AUTOMOBILI</small></span></div><p>Carrozzeria contemporanea italiana.</p><p>© {new Date().getFullYear()} Unica Automobili</p></div>
       </footer>
     </main>
   );
