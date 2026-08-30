@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   basePath: process.env.GITHUB_ACTIONS ? "/Unica-Automobili-Website" : "",
   assetPrefix: process.env.GITHUB_ACTIONS ? "/Unica-Automobili-Website/" : "",
+  env: {
+    NEXT_PUBLIC_BASE_PATH: process.env.GITHUB_ACTIONS ? "/Unica-Automobili-Website" : "",
+  },
 };
 
 export default nextConfig;

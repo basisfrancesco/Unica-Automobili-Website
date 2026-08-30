@@ -1,0 +1,7 @@
+export default function AtelierPage() {
+  return <main className="atelier-page">
+    <section className="atelier-hero"><p className="section-tag light">/ Unica Automobili</p><h1>Costruite attorno<br /><em>a una persona.</em></h1><p>Non produciamo serie. Costruiamo relazioni tra un’automobile, il suo proprietario e chi le dà forma.</p></section>
+    <section className="atelier-process"><p className="section-tag">/ Il metodo</p><div className="process-list"><article><span>01</span><div><h2>Ascolto</h2><p>Il progetto inizia dal modo in cui immagini la tua automobile: il carattere, l’uso, le sensazioni che deve restituire.</p></div></article><article><span>02</span><div><h2>Design</h2><p>Proporzioni, materiali e dettagli vengono sviluppati come un insieme coerente, mai come semplici accessori.</p></div></article><article><span>03</span><div><h2>Engineering</h2><p>Ogni scelta estetica dialoga con meccanica, aerodinamica, ergonomia e comportamento dinamico.</p></div></article><article><span>04</span><div><h2>Coachbuilding</h2><p>La visione diventa materia attraverso lavorazioni artigianali, controllo e una cura ossessiva delle finiture.</p></div></article></div></section>
+    <section className="atelier-statement"><h2>Non esistono due<br /><em>Unica uguali.</em></h2><p>Colori, pellami, metalli, tessuti e tarature vengono definiti insieme. Ogni automobile è il risultato di un percorso condiviso.</p></section>
+  </main>;
+}

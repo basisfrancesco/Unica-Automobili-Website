@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SiteChrome from "./components/SiteChrome";
 
 export const metadata: Metadata = {
   title: "Unica Automobili — Carrozzeria contemporanea italiana",
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="it"><body>{children}</body></html>;
+  return <html lang="it"><body><SiteChrome>{children}</SiteChrome></body></html>;
 }
