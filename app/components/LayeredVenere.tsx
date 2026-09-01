@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import type { CSSProperties, PointerEvent } from "react";
 import { asset } from "../lib/assets";
 
@@ -21,6 +22,48 @@ type LayeredVenereProps = {
 const layer = (name: string) =>
   asset(`/images/configurator/layers/side/${name}`);
 
+function MaskedColorLayer({
+  className,
+  mask,
+  color,
+}: {
+  className: string;
+  mask: string;
+  color: string;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    let cancelled = false;
+    const maskImage = new Image();
+    maskImage.decoding = "async";
+    maskImage.onload = () => {
+      if (cancelled) return;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.globalCompositeOperation = "source-over";
+      context.drawImage(maskImage, 0, 0, canvas.width, canvas.height);
+      context.globalCompositeOperation = "source-in";
+      context.fillStyle = color;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.globalCompositeOperation = "source-over";
+    };
+    maskImage.src = layer(mask);
+
+    return () => {
+      cancelled = true;
+      maskImage.onload = null;
+    };
+  }, [color, mask]);
+
+  return <canvas ref={canvasRef} className={`venere-layer ${className}`} width="1365" height="768" aria-hidden="true" />;
+}
+
 export default function LayeredVenere({
   configuration,
   className = "",
@@ -33,8 +76,6 @@ export default function LayeredVenere({
     "--venere-highlights": configuration.highlightOpacity,
     "--venere-x": "0px",
     "--venere-y": "0px",
-    "--venere-body-mask": `url("${layer("body-mask.png")}")`,
-    "--venere-caliper-mask": `url("${layer("calipers-mask.png")}")`,
   } as CSSProperties;
 
   const move = (event: PointerEvent<HTMLElement>) => {
@@ -62,11 +103,11 @@ export default function LayeredVenere({
       <div className="layered-venere-frame">
         <img className="venere-layer layer-background" src={layer("background-shadow.png")} alt="" />
         <img className="venere-layer layer-brakes" src={layer("brakes.png")} alt="" />
-        <div className="venere-layer layer-calipers" />
+        <MaskedColorLayer className="layer-calipers" mask="calipers-mask-alpha-v2.png" color={configuration.caliper} />
         <img className="venere-layer layer-wheels" src={layer("wheels-silver.png")} alt="" />
         <img className="venere-layer layer-body" src={layer("body-neutral.png")} alt="" />
-        <div className="venere-layer layer-paint" />
-        <div className="venere-layer layer-paint-depth" />
+        <MaskedColorLayer className="layer-paint" mask="body-mask-alpha-v2.png" color={configuration.paint} />
+        <MaskedColorLayer className="layer-paint-depth" mask="body-mask-alpha-v2.png" color="#000000" />
         <img className="venere-layer layer-highlights" src={layer("body-highlights.png")} alt="" />
         <img className="venere-layer layer-details" src={layer("fixed-details.png")} alt="" />
       </div>
