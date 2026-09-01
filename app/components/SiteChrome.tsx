@@ -34,7 +34,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       <Link className="brand" href="/" aria-label="Unica Automobili, homepage"><img src={asset("/images/unica-logo.jpeg")} alt="" /><span>UNICA <small>AUTOMOBILI</small></span></Link>
       <nav className="desktop-nav" aria-label="Navigazione principale">
         <button className={modelsOpen ? "models-trigger active" : "models-trigger"} onClick={() => setModelsOpen(!modelsOpen)} aria-expanded={modelsOpen}>Modelli <i /></button>
-        <Link href="/chi-siamo/">Chi siamo</Link><Link href="/atelier/">Atelier</Link><Link className="nav-contact" href="/atelier/#contatti">Parliamone <span>↗</span></Link>
+        <Link href="/configuratore/">Configura</Link><Link href="/chi-siamo/">Chi siamo</Link><Link href="/atelier/">Atelier</Link><Link className="nav-contact" href="/atelier/#contatti">Parliamone <span>↗</span></Link>
       </nav>
       <button className={menuOpen ? "menu-button active" : "menu-button"} onClick={() => { setMenuOpen(!menuOpen); setModelsOpen(false); }} aria-expanded={menuOpen} aria-label="Apri menu"><span /><span /></button>
     </header>
@@ -54,7 +54,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
 
     <div className={menuOpen ? "mobile-menu open" : "mobile-menu"}>
       <div className="mobile-menu-kicker">Unica Automobili · Italia</div>
-      <div className="mobile-links"><Link href="/">Home</Link><Link href="/venere/"><small>01</small><img src={asset("/images/venere-wordmark.png")} alt="Venere" /></Link><Link href="/breadvan/"><small>02</small><img src={asset("/images/breadvan-wordmark.png")} alt="Breadvan" /></Link><Link href="/chi-siamo/">Chi siamo</Link><Link href="/atelier/">Atelier</Link></div>
+      <div className="mobile-links"><Link href="/">Home</Link><Link href="/venere/"><small>01</small><img src={asset("/images/venere-wordmark.png")} alt="Venere" /></Link><Link href="/breadvan/"><small>02</small><img src={asset("/images/breadvan-wordmark.png")} alt="Breadvan" /></Link><Link href="/configuratore/">Configura Venere</Link><Link href="/chi-siamo/">Chi siamo</Link><Link href="/atelier/">Atelier</Link></div>
       <a className="mobile-contact" href="mailto:atelier@unicaautomobili.it">atelier@unicaautomobili.it ↗</a>
     </div>
 
