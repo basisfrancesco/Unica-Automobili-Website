@@ -4,14 +4,14 @@ import { useEffect, useMemo, useState } from "react";
 import LayeredVenere, { type VenereLayerConfiguration } from "../components/LayeredVenere";
 
 const paints = [
-  { name: "Argento Venere", hex: "#ffffff", sample: "#c8c9c7" },
-  { name: "Rosso Notturno", hex: "#8d2028", sample: "#781c23" },
-  { name: "Blu Mezzanotte", hex: "#244765", sample: "#17334b" },
-  { name: "Verde Inglese", hex: "#365547", sample: "#294437" },
-  { name: "Nero Ossidiana", hex: "#242727", sample: "#151717" },
-  { name: "Bianco Perla", hex: "#f3efe6", sample: "#e8e4da" },
-  { name: "Giallo Amalfi", hex: "#e0b43e", sample: "#d6a623" },
-  { name: "Arancio Bruciato", hex: "#b45a34", sample: "#9f4628" },
+  { name: "Argento Venere", hex: "#c7cbca", sample: "#c8c9c7", depth: 0 },
+  { name: "Rosso Notturno", hex: "#a91e2b", sample: "#781c23", depth: .16 },
+  { name: "Blu Mezzanotte", hex: "#28557c", sample: "#17334b", depth: .2 },
+  { name: "Verde Inglese", hex: "#3d6251", sample: "#294437", depth: .18 },
+  { name: "Nero Ossidiana", hex: "#292d2e", sample: "#151717", depth: .56 },
+  { name: "Bianco Perla", hex: "#ece9df", sample: "#e8e4da", depth: 0 },
+  { name: "Giallo Amalfi", hex: "#deb135", sample: "#d6a623", depth: .05 },
+  { name: "Arancio Bruciato", hex: "#bd5a32", sample: "#9f4628", depth: .11 },
 ];
 
 const calipers = [
@@ -38,6 +38,7 @@ export default function LayeredConfiguratorPage() {
   const configuration: VenereLayerConfiguration = useMemo(() => ({
     paint: paints[paintIndex].hex,
     paintName: paints[paintIndex].name,
+    paintDepth: paints[paintIndex].depth,
     caliper: calipers[caliperIndex].hex,
     caliperName: calipers[caliperIndex].name,
     highlightOpacity: finishes[finishIndex].value,

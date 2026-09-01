@@ -6,6 +6,7 @@ import { asset } from "../lib/assets";
 export type VenereLayerConfiguration = {
   paint: string;
   paintName: string;
+  paintDepth: number;
   caliper: string;
   caliperName: string;
   highlightOpacity: number;
@@ -27,6 +28,7 @@ export default function LayeredVenere({
 }: LayeredVenereProps) {
   const variables = {
     "--venere-paint": configuration.paint,
+    "--venere-paint-depth": configuration.paintDepth,
     "--venere-caliper": configuration.caliper,
     "--venere-highlights": configuration.highlightOpacity,
     "--venere-x": "0px",
@@ -64,6 +66,7 @@ export default function LayeredVenere({
         <img className="venere-layer layer-wheels" src={layer("wheels-silver.png")} alt="" />
         <img className="venere-layer layer-body" src={layer("body-neutral.png")} alt="" />
         <div className="venere-layer layer-paint" />
+        <div className="venere-layer layer-paint-depth" />
         <img className="venere-layer layer-highlights" src={layer("body-highlights.png")} alt="" />
         <img className="venere-layer layer-details" src={layer("fixed-details.png")} alt="" />
       </div>
