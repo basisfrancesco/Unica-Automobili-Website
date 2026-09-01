@@ -3,8 +3,8 @@ import "./globals.css";
 import SiteChrome from "./components/SiteChrome";
 
 export const metadata: Metadata = {
-  title: "Unica Automobili — Carrozzeria contemporanea italiana",
-  description: "Unica Automobili reinterpreta icone italiane attraverso design, ingegneria e artigianalità. Scopri Venere e il progetto Breadvan.",
+  title: "Unica Automobili — Carrozzeria contemporanea, Bergamo",
+  description: "Nata a Bergamo dal sogno di tre appassionati, Unica Automobili crea vetture irripetibili attraverso design, ingegneria e personalizzazione totale.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
