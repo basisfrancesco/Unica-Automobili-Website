@@ -1,48 +1,50 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import LayeredVenere, { type VenereLayerConfiguration } from "../components/LayeredVenere";
 
 const paints = [
-  { name: "Argento Venere", hex: "#c7cbca", sample: "#c8c9c7", depth: 0 },
-  { name: "Rosso Notturno", hex: "#a91e2b", sample: "#781c23", depth: .16 },
-  { name: "Blu Mezzanotte", hex: "#28557c", sample: "#17334b", depth: .2 },
-  { name: "Verde Inglese", hex: "#3d6251", sample: "#294437", depth: .18 },
-  { name: "Nero Ossidiana", hex: "#292d2e", sample: "#151717", depth: .56 },
-  { name: "Bianco Perla", hex: "#ece9df", sample: "#e8e4da", depth: 0 },
-  { name: "Giallo Amalfi", hex: "#deb135", sample: "#d6a623", depth: .05 },
-  { name: "Arancio Bruciato", hex: "#bd5a32", sample: "#9f4628", depth: .11 },
+  { name: "Argento Venere", slug: "argento-venere", sample: "#c8c9c7", note: "Metallizzato" },
+  { name: "Rosso Notturno", slug: "rosso-notturno", sample: "#781c23", note: "Metallizzato" },
+  { name: "Blu Mezzanotte", slug: "blu-mezzanotte", sample: "#17334b", note: "Metallizzato" },
+  { name: "Verde Inglese", slug: "verde-inglese", sample: "#294437", note: "Metallizzato" },
+  { name: "Nero Ossidiana", slug: "nero-ossidiana", sample: "#151717", note: "Metallizzato" },
+  { name: "Bianco Perla", slug: "bianco-perla", sample: "#e8e4da", note: "Perlato" },
+  { name: "Giallo Amalfi", slug: "giallo-amalfi", sample: "#d6a623", note: "Metallizzato" },
+  { name: "Arancio Bruciato", slug: "arancio-bruciato", sample: "#9f4628", note: "Metallizzato" },
+];
+
+const wheels = [
+  { name: "Argento Satinato", slug: "argento-satinato", sample: "#b7b8b5", note: "Firma Venere" },
+  { name: "Nero Satinato", slug: "nero-satinato", sample: "#242626", note: "Contrasto tecnico" },
+  { name: "Oro Champagne", slug: "oro-champagne", sample: "#a88a57", note: "Finitura atelier" },
 ];
 
 const calipers = [
-  { name: "Rosso", hex: "#bb2027" },
-  { name: "Giallo", hex: "#e5b72f" },
-  { name: "Blu", hex: "#205a86" },
-  { name: "Rame", hex: "#a4633d" },
-  { name: "Grafite", hex: "#353b3c" },
+  { name: "Rosso", slug: "rosso", sample: "#bb2027" },
+  { name: "Giallo", slug: "giallo", sample: "#e5b72f" },
+  { name: "Blu", slug: "blu", sample: "#205a86" },
+  { name: "Rame", slug: "rame", sample: "#a4633d" },
+  { name: "Grafite", slug: "grafite", sample: "#353b3c" },
 ];
 
-const finishes = [
-  { name: "Lucida", value: 1 },
-  { name: "Satinata", value: 0.58 },
-  { name: "Opaca", value: 0.2 },
-];
+type Panel = "paint" | "wheels" | "brakes";
 
 export default function LayeredConfiguratorPage() {
   const [paintIndex, setPaintIndex] = useState(1);
+  const [wheelIndex, setWheelIndex] = useState(0);
   const [caliperIndex, setCaliperIndex] = useState(0);
-  const [finishIndex, setFinishIndex] = useState(0);
-  const [panel, setPanel] = useState<"paint" | "brakes" | "finish">("paint");
+  const [panel, setPanel] = useState<Panel>("paint");
   const [expanded, setExpanded] = useState(false);
 
   const configuration: VenereLayerConfiguration = useMemo(() => ({
-    paint: paints[paintIndex].hex,
+    paintSlug: paints[paintIndex].slug,
     paintName: paints[paintIndex].name,
-    paintDepth: paints[paintIndex].depth,
-    caliper: calipers[caliperIndex].hex,
+    wheelSlug: wheels[wheelIndex].slug,
+    wheelName: wheels[wheelIndex].name,
+    caliperSlug: calipers[caliperIndex].slug,
     caliperName: calipers[caliperIndex].name,
-    highlightOpacity: finishes[finishIndex].value,
-  }), [paintIndex, caliperIndex, finishIndex]);
+  }), [paintIndex, wheelIndex, caliperIndex]);
 
   useEffect(() => {
     const close = (event: KeyboardEvent) => event.key === "Escape" && setExpanded(false);
@@ -57,78 +59,79 @@ export default function LayeredConfiguratorPage() {
 
   const reset = () => {
     setPaintIndex(0);
+    setWheelIndex(0);
     setCaliperIndex(4);
-    setFinishIndex(0);
   };
+
+  const configurationLabel = `${paints[paintIndex].name} · ${wheels[wheelIndex].name} · Pinze ${calipers[caliperIndex].name}`;
 
   return (
     <main className="layer-config-page">
       <header className="layer-config-intro">
         <div>
-          <p className="section-tag light">/ Atelier digitale · Prototipo</p>
+          <p className="section-tag light">/ Atelier digitale · Venere</p>
           <h1>Una Venere.<br /><em>La tua.</em></h1>
         </div>
         <div className="layer-config-intro-copy">
-          <span>Configuratore 2D · Vista laterale</span>
-          <p>Vernice, riflessi e pinze vengono composti in tempo reale. Nessuna immagine completa viene sostituita.</p>
+          <span>Configuratore fotografico · Vista laterale</span>
+          <p>Ogni scelta nasce da un render dedicato: materia, luce e riflessi restano autentici in qualsiasi combinazione.</p>
         </div>
       </header>
 
-      <section className="layer-config-workspace" aria-label="Configuratore sperimentale Venere">
+      <section className="layer-config-workspace" aria-label="Configuratore Venere">
         <div className="layer-config-visual">
-          <div className="layer-config-status"><i /> Live composition <span>8 livelli</span></div>
+          <div className="layer-config-status"><i /> Composizione fotografica <span>5 livelli indipendenti</span></div>
           <LayeredVenere configuration={configuration} />
           <button className="layer-config-expand" onClick={() => setExpanded(true)} aria-label="Apri la configurazione a schermo intero">Vista intera <span>↗</span></button>
           <div className="layer-config-caption">
             <span>Unica Venere</span>
             <strong>{paints[paintIndex].name}</strong>
-            <small>{finishes[finishIndex].name} · Cerchi Silver · Pinze {calipers[caliperIndex].name}</small>
+            <small>{wheels[wheelIndex].name} · Pinze {calipers[caliperIndex].name}</small>
           </div>
         </div>
 
         <aside className="layer-config-panel">
           <div className="layer-config-tabs" role="tablist" aria-label="Sezioni del configuratore">
             <button className={panel === "paint" ? "active" : ""} onClick={() => setPanel("paint")} role="tab" aria-selected={panel === "paint"}><span>01</span> Vernice</button>
-            <button className={panel === "brakes" ? "active" : ""} onClick={() => setPanel("brakes")} role="tab" aria-selected={panel === "brakes"}><span>02</span> Pinze</button>
-            <button className={panel === "finish" ? "active" : ""} onClick={() => setPanel("finish")} role="tab" aria-selected={panel === "finish"}><span>03</span> Finitura</button>
+            <button className={panel === "wheels" ? "active" : ""} onClick={() => setPanel("wheels")} role="tab" aria-selected={panel === "wheels"}><span>02</span> Cerchi</button>
+            <button className={panel === "brakes" ? "active" : ""} onClick={() => setPanel("brakes")} role="tab" aria-selected={panel === "brakes"}><span>03</span> Pinze</button>
           </div>
 
           <div className="layer-config-options" role="tabpanel">
             {panel === "paint" && <>
-              <div className="layer-option-heading"><span>Verniciatura</span><h2>{paints[paintIndex].name}</h2><p>La tinta viene applicata alla maschera della carrozzeria mantenendo ombre, volumi e riflessi originali.</p></div>
-              <div className="layer-paint-grid">{paints.map((paint, index) => <button key={paint.name} className={paintIndex === index ? "active" : ""} onClick={() => setPaintIndex(index)} aria-pressed={paintIndex === index}><i style={{ background: paint.sample }} /><span>{paint.name}</span><small>{paint.hex}</small></button>)}</div>
+              <div className="layer-option-heading"><span>Verniciatura</span><h2>{paints[paintIndex].name}</h2><p>Non una tinta digitale: ogni colore è una carrozzeria renderizzata con profondità, grana e riflessi propri.</p></div>
+              <div className="layer-paint-grid">{paints.map((paint, index) => <button key={paint.slug} className={paintIndex === index ? "active" : ""} onClick={() => setPaintIndex(index)} aria-pressed={paintIndex === index}><i style={{ background: paint.sample }} /><span>{paint.name}</span><small>{paint.note}</small></button>)}</div>
+            </>}
+
+            {panel === "wheels" && <>
+              <div className="layer-option-heading"><span>Finitura cerchi</span><h2>{wheels[wheelIndex].name}</h2><p>Tre gruppi ruota completi, già illuminati e rifiniti. Razze, canale e pneumatico restano perfettamente allineati.</p></div>
+              <div className="layer-wheel-grid">{wheels.map((wheel, index) => <button key={wheel.slug} className={wheelIndex === index ? "active" : ""} onClick={() => setWheelIndex(index)} aria-pressed={wheelIndex === index}><i className="layer-wheel-swatch" style={{ "--wheel-sample": wheel.sample } as CSSProperties} /><span><strong>{wheel.name}</strong><small>{wheel.note}</small></span><b>0{index + 1}</b></button>)}</div>
             </>}
 
             {panel === "brakes" && <>
-              <div className="layer-option-heading"><span>Pinze freno</span><h2>{calipers[caliperIndex].name}</h2><p>Il colore interessa soltanto la superficie delle pinze; dischi, mozzi e cerchi restano livelli indipendenti.</p></div>
-              <div className="layer-caliper-grid">{calipers.map((caliper, index) => <button key={caliper.name} className={caliperIndex === index ? "active" : ""} onClick={() => setCaliperIndex(index)} aria-pressed={caliperIndex === index}><i style={{ background: caliper.hex }} /><span>{caliper.name}</span></button>)}</div>
-            </>}
-
-            {panel === "finish" && <>
-              <div className="layer-option-heading"><span>Superficie</span><h2>{finishes[finishIndex].name}</h2><p>L’intensità del clear coat è controllata separatamente dal colore per simulare una superficie lucida, satinata o opaca.</p></div>
-              <div className="layer-finish-list">{finishes.map((finish, index) => <button key={finish.name} className={finishIndex === index ? "active" : ""} onClick={() => setFinishIndex(index)} aria-pressed={finishIndex === index}><span>{finish.name}</span><i><b style={{ opacity: finish.value }} /></i><small>0{index + 1}</small></button>)}</div>
-              <div className="layer-wheel-note"><span>Finitura cerchi</span><strong>Silver satinato</strong><p>Il livello Black sarà attivato appena sarà disponibile il relativo asset trasparente.</p></div>
+              <div className="layer-option-heading"><span>Pinze freno</span><h2>{calipers[caliperIndex].name}</h2><p>Il gruppo freno viene sostituito come immagine autonoma: dischi e dettagli metallici conservano la loro resa naturale.</p></div>
+              <div className="layer-caliper-grid">{calipers.map((caliper, index) => <button key={caliper.slug} className={caliperIndex === index ? "active" : ""} onClick={() => setCaliperIndex(index)} aria-pressed={caliperIndex === index}><i style={{ background: caliper.sample }} /><span>{caliper.name}</span></button>)}</div>
             </>}
           </div>
 
           <div className="layer-config-actions">
             <button onClick={reset}>Ripristina</button>
-            <a href={`mailto:atelier@unicaautomobili.it?subject=${encodeURIComponent(`Venere — ${paints[paintIndex].name}, pinze ${calipers[caliperIndex].name}, finitura ${finishes[finishIndex].name}`)}`}>Invia all’atelier <span>↗</span></a>
+            <a href={`mailto:atelier@unicaautomobili.it?subject=${encodeURIComponent(`Venere — ${configurationLabel}`)}`}>Invia all’atelier <span>↗</span></a>
           </div>
         </aside>
       </section>
 
       <section className="layer-config-explainer">
         <p className="section-tag light">/ Composizione</p>
-        <div><strong>01</strong><span>Sfondo e ombra</span></div><div><strong>02</strong><span>Freni e pinze</span></div><div><strong>03</strong><span>Cerchi</span></div><div><strong>04</strong><span>Carrozzeria e dettagli</span></div>
+        <div><strong>01</strong><span>Ambiente e ombra</span></div><div><strong>02</strong><span>Freni e pinze</span></div><div><strong>03</strong><span>Cerchi e pneumatici</span></div><div><strong>04</strong><span>Carrozzeria e dettagli</span></div>
       </section>
 
-      <div className="sr-only" aria-live="polite">Configurazione aggiornata: {configuration.paintName}, pinze {configuration.caliperName}, finitura {finishes[finishIndex].name}.</div>
+      <div className="sr-only" aria-live="polite">Configurazione aggiornata: {configurationLabel}.</div>
 
       {expanded && <div className="layer-config-lightbox" role="dialog" aria-modal="true" aria-label="Configurazione Venere a schermo intero">
         <LayeredVenere configuration={configuration} interactive={false} className="expanded" />
         <button onClick={() => setExpanded(false)}>Chiudi <span>×</span></button>
-        <div><strong>{paints[paintIndex].name}</strong><span>{finishes[finishIndex].name} · Pinze {calipers[caliperIndex].name}</span></div>
+        <div><strong>{paints[paintIndex].name}</strong><span>{wheels[wheelIndex].name} · Pinze {calipers[caliperIndex].name}</span></div>
       </div>}
     </main>
   );

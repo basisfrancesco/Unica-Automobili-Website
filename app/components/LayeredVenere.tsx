@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import type { CSSProperties, PointerEvent } from "react";
 import { asset } from "../lib/assets";
 
 export type VenereLayerConfiguration = {
-  paint: string;
+  paintSlug: string;
   paintName: string;
-  paintDepth: number;
-  caliper: string;
+  wheelSlug: string;
+  wheelName: string;
+  caliperSlug: string;
   caliperName: string;
-  highlightOpacity: number;
 };
 
 type LayeredVenereProps = {
@@ -20,49 +19,7 @@ type LayeredVenereProps = {
 };
 
 const layer = (name: string) =>
-  asset(`/images/configurator/layers/side/${name}`);
-
-function MaskedColorLayer({
-  className,
-  mask,
-  color,
-}: {
-  className: string;
-  mask: string;
-  color: string;
-}) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const context = canvas.getContext("2d");
-    if (!context) return;
-
-    let cancelled = false;
-    const maskImage = new Image();
-    maskImage.decoding = "async";
-    maskImage.onload = () => {
-      if (cancelled) return;
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      context.globalCompositeOperation = "source-over";
-      context.drawImage(maskImage, 0, 0, canvas.width, canvas.height);
-      context.globalCompositeOperation = "source-in";
-      context.fillStyle = color;
-      context.fillRect(0, 0, canvas.width, canvas.height);
-      context.globalCompositeOperation = "source-over";
-    };
-    maskImage.src = layer(mask);
-
-    return () => {
-      cancelled = true;
-      maskImage.onload = null;
-    };
-  }, [color, mask]);
-
-  return <canvas ref={canvasRef} className={`venere-layer ${className}`} width="1365" height="768" aria-hidden="true" />;
-}
+  asset(`/images/configurator/layers/side-v2/${name}`);
 
 export default function LayeredVenere({
   configuration,
@@ -70,10 +27,6 @@ export default function LayeredVenere({
   interactive = true,
 }: LayeredVenereProps) {
   const variables = {
-    "--venere-paint": configuration.paint,
-    "--venere-paint-depth": configuration.paintDepth,
-    "--venere-caliper": configuration.caliper,
-    "--venere-highlights": configuration.highlightOpacity,
     "--venere-x": "0px",
     "--venere-y": "0px",
   } as CSSProperties;
@@ -98,21 +51,17 @@ export default function LayeredVenere({
       style={variables}
       onPointerMove={move}
       onPointerLeave={reset}
-      aria-label={`Unica Venere in ${configuration.paintName}, con pinze ${configuration.caliperName}`}
+      aria-label={`Unica Venere in ${configuration.paintName}, cerchi ${configuration.wheelName}, pinze ${configuration.caliperName}`}
     >
       <div className="layered-venere-frame">
-        <img className="venere-layer layer-background" src={layer("background-shadow.png")} alt="" />
-        <img className="venere-layer layer-brakes" src={layer("brakes.png")} alt="" />
-        <MaskedColorLayer className="layer-calipers" mask="calipers-mask-alpha-v2.png" color={configuration.caliper} />
-        <img className="venere-layer layer-wheels" src={layer("wheels-silver.png")} alt="" />
-        <img className="venere-layer layer-body" src={layer("body-neutral.png")} alt="" />
-        <MaskedColorLayer className="layer-paint" mask="body-mask-alpha-v2.png" color={configuration.paint} />
-        <MaskedColorLayer className="layer-paint-depth" mask="body-mask-alpha-v2.png" color="#000000" />
-        <img className="venere-layer layer-highlights" src={layer("body-highlights.png")} alt="" />
-        <img className="venere-layer layer-details" src={layer("fixed-details.png")} alt="" />
+        <img className="venere-layer layer-background" src={layer("background-shadow.webp")} alt="" />
+        <img key={configuration.caliperSlug} className="venere-layer layer-brakes layer-swap" src={layer(`brakes/${configuration.caliperSlug}.webp`)} alt="" />
+        <img key={configuration.wheelSlug} className="venere-layer layer-wheels layer-swap" src={layer(`wheels/${configuration.wheelSlug}.webp`)} alt="" />
+        <img key={configuration.paintSlug} className="venere-layer layer-body-variant layer-swap" src={layer(`body/${configuration.paintSlug}.webp`)} alt="" />
+        <img className="venere-layer layer-details" src={layer("fixed-details.webp")} alt="" />
       </div>
       <figcaption className="sr-only">
-        Configurazione Venere: {configuration.paintName}, pinze {configuration.caliperName}.
+        Configurazione Venere: {configuration.paintName}, cerchi {configuration.wheelName}, pinze {configuration.caliperName}.
       </figcaption>
     </figure>
   );
