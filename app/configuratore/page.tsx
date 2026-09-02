@@ -74,13 +74,13 @@ export default function LayeredConfiguratorPage() {
         </div>
         <div className="layer-config-intro-copy">
           <span>Configuratore fotografico · Vista laterale</span>
-          <p>Ogni scelta nasce da un render dedicato: materia, luce e riflessi restano autentici in qualsiasi combinazione.</p>
+          <p>Il master originale rimane sempre integro. Vernice, ruote e freni si innestano come ritagli sovrapposti, senza vuoti tra un elemento e l’altro.</p>
         </div>
       </header>
 
       <section className="layer-config-workspace" aria-label="Configuratore Venere">
         <div className="layer-config-visual">
-          <div className="layer-config-status"><i /> Composizione fotografica <span>5 livelli indipendenti</span></div>
+          <div className="layer-config-status"><i /> Master fotografico <span>Ritagli sovrapposti</span></div>
           <LayeredVenere configuration={configuration} />
           <button className="layer-config-expand" onClick={() => setExpanded(true)} aria-label="Apri la configurazione a schermo intero">Vista intera <span>↗</span></button>
           <div className="layer-config-caption">
@@ -104,12 +104,12 @@ export default function LayeredConfiguratorPage() {
             </>}
 
             {panel === "wheels" && <>
-              <div className="layer-option-heading"><span>Finitura cerchi</span><h2>{wheels[wheelIndex].name}</h2><p>Tre gruppi ruota completi, già illuminati e rifiniti. Razze, canale e pneumatico restano perfettamente allineati.</p></div>
+              <div className="layer-option-heading"><span>Finitura cerchi</span><h2>{wheels[wheelIndex].name}</h2><p>Ogni gruppo ruota è ritagliato sulla fotografia completa: passaruota, profondità e parti nascoste restano quelli del master.</p></div>
               <div className="layer-wheel-grid">{wheels.map((wheel, index) => <button key={wheel.slug} className={wheelIndex === index ? "active" : ""} onClick={() => setWheelIndex(index)} aria-pressed={wheelIndex === index}><i className="layer-wheel-swatch" style={{ "--wheel-sample": wheel.sample } as CSSProperties} /><span><strong>{wheel.name}</strong><small>{wheel.note}</small></span><b>0{index + 1}</b></button>)}</div>
             </>}
 
             {panel === "brakes" && <>
-              <div className="layer-option-heading"><span>Pinze freno</span><h2>{calipers[caliperIndex].name}</h2><p>Il gruppo freno viene sostituito come immagine autonoma: dischi e dettagli metallici conservano la loro resa naturale.</p></div>
+              <div className="layer-option-heading"><span>Pinze freno</span><h2>{calipers[caliperIndex].name}</h2><p>La variante interviene soltanto dove è visibile tra le razze; tutto ciò che rimane nascosto continua dal master sottostante.</p></div>
               <div className="layer-caliper-grid">{calipers.map((caliper, index) => <button key={caliper.slug} className={caliperIndex === index ? "active" : ""} onClick={() => setCaliperIndex(index)} aria-pressed={caliperIndex === index}><i style={{ background: caliper.sample }} /><span>{caliper.name}</span></button>)}</div>
             </>}
           </div>
@@ -123,7 +123,7 @@ export default function LayeredConfiguratorPage() {
 
       <section className="layer-config-explainer">
         <p className="section-tag light">/ Composizione</p>
-        <div><strong>01</strong><span>Ambiente e ombra</span></div><div><strong>02</strong><span>Freni e pinze</span></div><div><strong>03</strong><span>Cerchi e pneumatici</span></div><div><strong>04</strong><span>Carrozzeria e dettagli</span></div>
+        <div><strong>01</strong><span>Master completo</span></div><div><strong>02</strong><span>Freni visibili</span></div><div><strong>03</strong><span>Gruppi ruota</span></div><div><strong>04</strong><span>Carrozzeria sovrapposta</span></div>
       </section>
 
       <div className="sr-only" aria-live="polite">Configurazione aggiornata: {configurationLabel}.</div>

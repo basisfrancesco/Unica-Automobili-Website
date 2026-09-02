@@ -19,7 +19,7 @@ type LayeredVenereProps = {
 };
 
 const layer = (name: string) =>
-  asset(`/images/configurator/layers/side-v2/${name}`);
+  asset(`/images/configurator/layers/side-v3/${name}`);
 
 export default function LayeredVenere({
   configuration,
@@ -54,7 +54,7 @@ export default function LayeredVenere({
       aria-label={`Unica Venere in ${configuration.paintName}, cerchi ${configuration.wheelName}, pinze ${configuration.caliperName}`}
     >
       <div className="layered-venere-frame">
-        <img className="venere-layer layer-background" src={layer("background-shadow.webp")} alt="" />
+        <img className="venere-layer layer-background" src={layer("master-base.webp")} alt="" />
         <img key={configuration.caliperSlug} className="venere-layer layer-brakes layer-swap" src={layer(`brakes/${configuration.caliperSlug}.webp`)} alt="" />
         <img key={configuration.wheelSlug} className="venere-layer layer-wheels layer-swap" src={layer(`wheels/${configuration.wheelSlug}.webp`)} alt="" />
         <img key={configuration.paintSlug} className="venere-layer layer-body-variant layer-swap" src={layer(`body/${configuration.paintSlug}.webp`)} alt="" />
