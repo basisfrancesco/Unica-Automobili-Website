@@ -19,7 +19,7 @@ type LayeredVenereProps = {
 };
 
 const layer = (name: string) =>
-  asset(`/images/configurator/layers/side-v4/${name}`);
+  asset(`/images/configurator/layers/side-v5/${name}`);
 
 export default function LayeredVenere({
   configuration,
