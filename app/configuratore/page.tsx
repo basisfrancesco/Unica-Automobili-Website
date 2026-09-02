@@ -12,6 +12,10 @@ const paints = [
   { name: "Bianco Perla", slug: "bianco-perla", sample: "#e8e4da", note: "Perlato" },
   { name: "Giallo Amalfi", slug: "giallo-amalfi", sample: "#d6a623", note: "Metallizzato" },
   { name: "Arancio Bruciato", slug: "arancio-bruciato", sample: "#9f4628", note: "Metallizzato" },
+  { name: "Grigio Titanio", slug: "grigio-titanio", sample: "#55585b", note: "Metallizzato" },
+  { name: "Bronzo Etna", slug: "bronzo-etna", sample: "#63402f", note: "Metallizzato" },
+  { name: "Viola Imperiale", slug: "viola-imperiale", sample: "#38283c", note: "Metallizzato" },
+  { name: "Azzurro Riviera", slug: "azzurro-riviera", sample: "#5798c7", note: "Metallizzato" },
 ];
 
 const wheels = [
@@ -28,12 +32,21 @@ const calipers = [
   { name: "Grafite", slug: "grafite", sample: "#353b3c" },
 ];
 
-type Panel = "paint" | "wheels" | "brakes";
+const interiors = [
+  { name: "Nero Antracite", slug: "nero-antracite", sample: "#303334", note: "Pelle pieno fiore" },
+  { name: "Cuoio Naturale", slug: "cuoio-naturale", sample: "#9d572e", note: "Pelle pieno fiore" },
+  { name: "Bordeaux", slug: "bordeaux", sample: "#6f2631", note: "Pelle pieno fiore" },
+  { name: "Blu Notte", slug: "blu-notte", sample: "#263e5b", note: "Pelle pieno fiore" },
+  { name: "Avorio", slug: "avorio", sample: "#d9cfb8", note: "Pelle pieno fiore" },
+];
+
+type Panel = "paint" | "wheels" | "brakes" | "interior";
 
 export default function LayeredConfiguratorPage() {
   const [paintIndex, setPaintIndex] = useState(1);
   const [wheelIndex, setWheelIndex] = useState(0);
   const [caliperIndex, setCaliperIndex] = useState(0);
+  const [interiorIndex, setInteriorIndex] = useState(0);
   const [panel, setPanel] = useState<Panel>("paint");
   const [expanded, setExpanded] = useState(false);
 
@@ -44,7 +57,9 @@ export default function LayeredConfiguratorPage() {
     wheelName: wheels[wheelIndex].name,
     caliperSlug: calipers[caliperIndex].slug,
     caliperName: calipers[caliperIndex].name,
-  }), [paintIndex, wheelIndex, caliperIndex]);
+    interiorSlug: interiors[interiorIndex].slug,
+    interiorName: interiors[interiorIndex].name,
+  }), [paintIndex, wheelIndex, caliperIndex, interiorIndex]);
 
   useEffect(() => {
     const close = (event: KeyboardEvent) => event.key === "Escape" && setExpanded(false);
@@ -61,9 +76,10 @@ export default function LayeredConfiguratorPage() {
     setPaintIndex(0);
     setWheelIndex(0);
     setCaliperIndex(4);
+    setInteriorIndex(0);
   };
 
-  const configurationLabel = `${paints[paintIndex].name} · ${wheels[wheelIndex].name} · Pinze ${calipers[caliperIndex].name}`;
+  const configurationLabel = `${paints[paintIndex].name} · ${wheels[wheelIndex].name} · Pinze ${calipers[caliperIndex].name} · Interni ${interiors[interiorIndex].name}`;
 
   return (
     <main className="layer-config-page">
@@ -74,7 +90,7 @@ export default function LayeredConfiguratorPage() {
         </div>
         <div className="layer-config-intro-copy">
           <span>Configuratore fotografico · Vista laterale</span>
-          <p>Il master originale rimane sempre integro. Vernice, ruote e freni si innestano come ritagli sovrapposti, senza vuoti tra un elemento e l’altro.</p>
+          <p>Il master originale rimane sempre integro. Vernice, ruote, freni e interni si innestano come ritagli sovrapposti, senza vuoti tra un elemento e l’altro.</p>
         </div>
       </header>
 
@@ -86,7 +102,7 @@ export default function LayeredConfiguratorPage() {
           <div className="layer-config-caption">
             <span>Unica Venere</span>
             <strong>{paints[paintIndex].name}</strong>
-            <small>{wheels[wheelIndex].name} · Pinze {calipers[caliperIndex].name}</small>
+            <small>{wheels[wheelIndex].name} · Pinze {calipers[caliperIndex].name} · Interni {interiors[interiorIndex].name}</small>
           </div>
         </div>
 
@@ -95,6 +111,7 @@ export default function LayeredConfiguratorPage() {
             <button className={panel === "paint" ? "active" : ""} onClick={() => setPanel("paint")} role="tab" aria-selected={panel === "paint"}><span>01</span> Vernice</button>
             <button className={panel === "wheels" ? "active" : ""} onClick={() => setPanel("wheels")} role="tab" aria-selected={panel === "wheels"}><span>02</span> Cerchi</button>
             <button className={panel === "brakes" ? "active" : ""} onClick={() => setPanel("brakes")} role="tab" aria-selected={panel === "brakes"}><span>03</span> Pinze</button>
+            <button className={panel === "interior" ? "active" : ""} onClick={() => setPanel("interior")} role="tab" aria-selected={panel === "interior"}><span>04</span> Interni</button>
           </div>
 
           <div className="layer-config-options" role="tabpanel">
@@ -112,6 +129,11 @@ export default function LayeredConfiguratorPage() {
               <div className="layer-option-heading"><span>Pinze freno</span><h2>{calipers[caliperIndex].name}</h2><p>La variante interviene soltanto dove è visibile tra le razze; tutto ciò che rimane nascosto continua dal master sottostante.</p></div>
               <div className="layer-caliper-grid">{calipers.map((caliper, index) => <button key={caliper.slug} className={caliperIndex === index ? "active" : ""} onClick={() => setCaliperIndex(index)} aria-pressed={caliperIndex === index}><i style={{ background: caliper.sample }} /><span>{caliper.name}</span></button>)}</div>
             </>}
+
+            {panel === "interior" && <>
+              <div className="layer-option-heading"><span>Abitacolo</span><h2>{interiors[interiorIndex].name}</h2><p>Il rivestimento interessa soltanto le superfici dei sedili realmente visibili, preservando profili, ombre e bordi della carrozzeria.</p></div>
+              <div className="layer-interior-grid">{interiors.map((interior, index) => <button key={interior.slug} className={interiorIndex === index ? "active" : ""} onClick={() => setInteriorIndex(index)} aria-pressed={interiorIndex === index}><i style={{ background: interior.sample }} /><span><strong>{interior.name}</strong><small>{interior.note}</small></span></button>)}</div>
+            </>}
           </div>
 
           <div className="layer-config-actions">
@@ -123,15 +145,15 @@ export default function LayeredConfiguratorPage() {
 
       <section className="layer-config-explainer">
         <p className="section-tag light">/ Composizione</p>
-        <div><strong>01</strong><span>Master completo</span></div><div><strong>02</strong><span>Freni visibili</span></div><div><strong>03</strong><span>Gruppi ruota</span></div><div><strong>04</strong><span>Carrozzeria sovrapposta</span></div>
+        <div><strong>01</strong><span>Master completo</span></div><div><strong>02</strong><span>Freni visibili</span></div><div><strong>03</strong><span>Gruppi ruota</span></div><div><strong>04</strong><span>Carrozzeria</span></div><div><strong>05</strong><span>Interni visibili</span></div>
       </section>
 
       <div className="sr-only" aria-live="polite">Configurazione aggiornata: {configurationLabel}.</div>
 
       {expanded && <div className="layer-config-lightbox" role="dialog" aria-modal="true" aria-label="Configurazione Venere a schermo intero">
-        <LayeredVenere configuration={configuration} interactive={false} className="expanded" />
+        <LayeredVenere configuration={configuration} className="expanded" />
         <button onClick={() => setExpanded(false)}>Chiudi <span>×</span></button>
-        <div><strong>{paints[paintIndex].name}</strong><span>{wheels[wheelIndex].name} · Pinze {calipers[caliperIndex].name}</span></div>
+        <div><strong>{paints[paintIndex].name}</strong><span>{wheels[wheelIndex].name} · Pinze {calipers[caliperIndex].name} · Interni {interiors[interiorIndex].name}</span></div>
       </div>}
     </main>
   );
