@@ -1,0 +1,94 @@
+/* A contained editorial rhythm, scoped to the model page. */
+.venere-editorial { --venere-width: 1180px; --venere-gutter: clamp(22px, 5vw, 72px); background: #111315; }
+.venere-editorial h2 { text-wrap: balance; }
+.venere-editorial .venere-cinematic { height: auto; min-height: 0; max-height: none; padding: 110px var(--venere-gutter) 36px; display: flex; flex-direction: column; align-items: center; background: #111116; }
+.venere-editorial .venere-cinematic > img { display: block; width: 100%; max-width: var(--venere-width); height: clamp(220px, 34vw, 440px); object-fit: contain; padding: 0; animation: none; }
+.venere-editorial .venere-cinematic .model-hero-shade { display: none; }
+.venere-editorial .venere-title { position: static; width: 100%; text-align: center; }
+.venere-editorial .venere-title > p { margin: 8px 0; }
+.venere-editorial .venere-title > img { display: block; width: min(380px, 70vw); height: 90px; object-position: center; margin: 0 auto; }
+.venere-editorial .venere-title > span { display: block; font-size: 16px; }
+.venere-editorial .hero-scroll { position: static; margin: 26px 0 0; transform: none; }
+.venere-editorial .venere-essence { padding: 78px max(var(--venere-gutter), calc((100% - var(--venere-width))/2)); grid-template-columns: 70px 1fr; gap: 26px; }
+.venere-editorial .venere-essence h1 { font-size: clamp(34px, 4.1vw, 58px); margin: 20px 0 28px; }
+.venere-editorial .venere-essence > div:last-child > p:last-child { margin: 0; max-width: 740px; font-size: 15px; }
+.venere-editorial .venere-program { padding: 0 max(var(--venere-gutter), calc((100% - var(--venere-width))/2)) 70px; }
+.venere-editorial .venere-program article { padding-block: 26px; }
+.venere-editorial .venere-program span { margin-bottom: 16px; }
+.venere-editorial .venere-profile { min-height: 0; height: auto; display: grid; grid-template-columns: .85fr 1.5fr; align-items: center; gap: 36px; padding: 64px max(var(--venere-gutter), calc((100% - var(--venere-width))/2)); background: #17171c; }
+.venere-editorial .profile-copy { position: static; max-width: none; }
+.venere-editorial .profile-copy h2 { font-size: clamp(32px, 3.2vw, 46px); margin: 24px 0; }
+.venere-editorial .profile-copy > p:last-child { max-width: 420px; font-size: 14px; }
+.venere-editorial .venere-profile > img { position: static; display: block; width: 100%; height: auto; max-height: 380px; padding: 0; object-fit: contain; }
+.venere-editorial .detail-story { padding: 76px max(var(--venere-gutter), calc((100% - var(--venere-width))/2)) 54px; }
+.venere-editorial .detail-head { display: flex; justify-content: space-between; align-items: start; gap: 30px; margin-bottom: 38px; }
+.venere-editorial .detail-head h2 { font-size: clamp(32px, 3.6vw, 49px); }
+.venere-editorial .detail-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: start; }
+.venere-editorial .detail-card { grid-column: auto; margin: 0; min-width: 0; }
+.venere-editorial .detail-image { background: #e4e1da; }
+.venere-editorial .detail-image img { display: block; width: 100%; height: clamp(260px, 30vw, 370px); aspect-ratio: auto; object-fit: contain; transform: none; }
+.venere-editorial .detail-card h3 { font-size: 24px; margin: 20px 0 12px; }
+.venere-editorial .detail-card > p { font-size: 13px; margin-bottom: 0; }
+.venere-signatures { padding: 30px max(var(--venere-gutter), calc((100% - var(--venere-width))/2)) 76px; display: grid; grid-template-columns: 1.1fr 1fr 1fr; align-items: center; gap: 28px; background: var(--paper); color: var(--ink); }
+.signature-copy h2 { font: 400 clamp(30px, 3vw, 42px)/1.1 Georgia, serif; margin: 22px 0; }
+.signature-copy h2 em { color: #806e56; }
+.signature-copy > p:last-child { font-size: 13px; line-height: 1.8; max-width: 310px; color: #555952; }
+.venere-signatures figure { margin: 0; min-width: 0; }
+.venere-signatures img { display: block; width: 100%; height: auto; max-height: 310px; object-fit: contain; }
+.venere-signatures figcaption { font-size: 12px; line-height: 1.6; padding-top: 16px; }
+.venere-signatures figcaption span { display: block; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: #80725b; margin-bottom: 6px; }
+.venere-editorial .technical-section { padding: 72px max(var(--venere-gutter), calc((100% - var(--venere-width))/2)); }
+.venere-editorial .technical-head { display: flex; justify-content: space-between; gap: 30px; margin-bottom: 36px; }
+.venere-editorial .technical-head h2 { font-size: clamp(32px, 3.6vw, 48px); }
+.venere-editorial .technical-stage { grid-template-columns: 1.1fr 1fr; min-height: 440px; }
+.venere-editorial .technical-visual { min-height: 0; height: auto; }
+.venere-editorial .technical-visual img { object-fit: contain; transform: none; padding: 18px; }
+.venere-editorial .technical-copy { padding: 32px; }
+.venere-editorial .technical-tabs { margin-bottom: 32px; }
+.venere-editorial .tech-number { font-size: 86px; }
+.venere-editorial .technical-copy h3 { font-size: 26px; margin-top: 20px; }
+.venere-editorial .technical-copy > div:last-child > p { font-size: 13px; }
+.venere-editorial .front-rear { gap: 28px; padding: 64px max(var(--venere-gutter), calc((100% - var(--venere-width))/2)); }
+.venere-editorial .front-rear figure { padding: 0; background: transparent; }
+.venere-editorial .front-rear img { height: auto; min-height: 0; max-height: 340px; object-fit: contain; transform: none; }
+.venere-editorial .front-rear figcaption { position: static; padding-top: 20px; gap: 24px; border-top: 1px solid #ffffff20; }
+.venere-editorial .front-rear figcaption p { max-width: 300px; }
+.venere-editorial .venere-config-entry { padding: 68px var(--venere-gutter); text-align: center; }
+.venere-editorial .venere-config-entry h2 { font-size: clamp(34px, 4vw, 52px); }
+@media (max-width: 800px) {
+  .venere-editorial .venere-profile { grid-template-columns: 1fr; gap: 20px; }
+  .venere-editorial .profile-copy { max-width: 580px; }
+  .venere-editorial .venere-profile > img { max-height: 300px; }
+  .venere-signatures { grid-template-columns: 1fr 1fr; }
+  .signature-copy { grid-column: 1 / -1; }
+  .signature-copy > p:last-child { max-width: 550px; }
+  .venere-editorial .technical-stage { grid-template-columns: 1fr; }
+  .venere-editorial .technical-visual { height: 280px; }
+  .venere-editorial .technical-copy { padding: 28px; }
+}
+@media (max-width: 600px) {
+  .venere-editorial .venere-cinematic { padding-top: 90px; }
+  .venere-editorial .venere-cinematic > img { height: 230px; }
+  .venere-editorial .venere-title > img { height: 72px; }
+  .venere-editorial .venere-essence { grid-template-columns: 1fr; padding-block: 52px; }
+  .venere-editorial .vertical-note { display: none; }
+  .venere-editorial .venere-program { grid-template-columns: 1fr 1fr; padding-bottom: 44px; gap: 18px; }
+  .venere-editorial .venere-program article { padding: 18px 0; border-right: 0; }
+  .venere-editorial .venere-program strong { font-size: 19px; }
+  .venere-editorial .venere-profile { padding-block: 44px; }
+  .venere-editorial .detail-story { padding-block: 48px 34px; }
+  .venere-editorial .detail-head, .venere-editorial .technical-head { display: block; }
+  .venere-editorial .detail-head > p, .venere-editorial .technical-head > p { margin-bottom: 22px; }
+  .venere-editorial .detail-grid { grid-template-columns: 1fr; gap: 32px; }
+  .venere-editorial .detail-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 18px; align-items: start; }
+  .venere-editorial .detail-image { grid-row: span 2; }
+  .venere-editorial .detail-image img { height: 240px; }
+  .venere-editorial .detail-card h3 { margin: 8px 0 12px; font-size: 22px; }
+  .venere-editorial .detail-card > p { font-size: 12px; line-height: 1.65; }
+  .venere-signatures { gap: 24px 16px; padding-bottom: 48px; }
+  .venere-editorial .technical-section { padding-block: 48px; }
+  .venere-editorial .technical-copy { padding: 24px 20px; }
+  .venere-editorial .front-rear { grid-template-columns: 1fr; padding-block: 42px; gap: 32px; }
+  .venere-editorial .front-rear figcaption { display: flex; padding-top: 14px; }
+  .venere-editorial .front-rear figcaption p { margin: 0; }
+}

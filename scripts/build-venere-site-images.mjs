@@ -12,6 +12,7 @@ const photos = {
   side: 'Base/side.png',
   'front-light': 'Details/Front Light.png',
   'front-logo': 'Details/Front Logo.png',
+  'rear-logo': 'Details/Rear Logo.png',
   'rear-light': 'Details/Rear Light.png',
   'side-vent': 'Details/Side Vent.png',
 };
