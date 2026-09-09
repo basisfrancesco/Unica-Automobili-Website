@@ -1,0 +1,38 @@
+{
+  "argento": [
+    {
+      "id": "front",
+      "src": "/images/configurator/V3/cutouts/wheels/argento-front.png",
+      "x": 163.56644981412643,
+      "y": 281.33364312267656,
+      "width": 130.16542750929366,
+      "height": 131.72118959107806
+    },
+    {
+      "id": "rear",
+      "src": "/images/configurator/V3/cutouts/wheels/argento-rear.png",
+      "x": 728.8266728624535,
+      "y": 279.2592936802974,
+      "width": 130.16542750929366,
+      "height": 131.72118959107806
+    }
+  ],
+  "nero": [
+    {
+      "id": "front",
+      "src": "/images/configurator/V3/cutouts/wheels/nero-front.png",
+      "x": 163.6015625,
+      "y": 281.54296875,
+      "width": 130.0546875,
+      "height": 131.5078125
+    },
+    {
+      "id": "rear",
+      "src": "/images/configurator/V3/cutouts/wheels/nero-rear.png",
+      "x": 728.8671875,
+      "y": 279.36328125,
+      "width": 130.0546875,
+      "height": 131.5078125
+    }
+  ]
+}
