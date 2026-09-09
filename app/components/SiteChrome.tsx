@@ -7,6 +7,7 @@ import { asset } from "../lib/assets";
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isConfigurator = pathname.replace(/\/$/, "") === "/configuratore";
   const [menuOpen, setMenuOpen] = useState(false);
   const [modelsOpen, setModelsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -59,6 +60,6 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     </div>
 
     {children}
-    <footer id="contatti"><div className="footer-top"><div><p className="section-tag light">/ Inizia il tuo progetto</p><h2>Creiamo qualcosa<br />di <em>irripetibile.</em></h2></div><a href="mailto:atelier@unicaautomobili.it">atelier@unicaautomobili.it <span>↗</span></a></div><div className="footer-bottom"><div className="brand footer-brand"><img src={asset("/images/unica-logo.jpeg")} alt="" /><span>UNICA <small>AUTOMOBILI</small></span></div><p>Carrozzeria contemporanea italiana.</p><div><Link href="/chi-siamo/">Chi siamo</Link><Link href="/atelier/">Atelier</Link></div><p>© {new Date().getFullYear()} Unica Automobili</p></div></footer>
+    {!isConfigurator && <footer id="contatti"><div className="footer-top"><div><p className="section-tag light">/ Inizia il tuo progetto</p><h2>Creiamo qualcosa<br />di <em>irripetibile.</em></h2></div><a href="mailto:atelier@unicaautomobili.it">atelier@unicaautomobili.it <span>↗</span></a></div><div className="footer-bottom"><div className="brand footer-brand"><img src={asset("/images/unica-logo.jpeg")} alt="" /><span>UNICA <small>AUTOMOBILI</small></span></div><p>Carrozzeria contemporanea italiana.</p><div><Link href="/chi-siamo/">Chi siamo</Link><Link href="/atelier/">Atelier</Link></div><p>© {new Date().getFullYear()} Unica Automobili</p></div></footer>}
   </>;
 }

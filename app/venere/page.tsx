@@ -1,17 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
 import { asset } from "../lib/assets";
 
-const finishes = [
-  { name:"Blu Notte", slug:"blu", color:"#12314b", black:true },
-  { name:"Verde Inglese", slug:"verde-inglese", color:"#24392f", black:true },
-  { name:"Arancio Bruciato", slug:"arancione", color:"#a94a22", black:true },
-  { name:"Giallo Modena", slug:"giallo", color:"#d9a514", black:true },
-  { name:"Bianco Perla", slug:"bianco", color:"#e6e3dc", black:true },
-  { name:"Nero Assoluto", slug:"nero", color:"#111313", black:true },
-  { name:"Rosso Scuro", slug:"rosso-scuro", color:"#681d22", black:true },
-];
 const details = [
   { image:"/images/venere/details/front-light.png", number:"01", title:"Uno sguardo netto", copy:"Un segno luminoso sottile, incastonato in una superficie scolpita." },
   { image:"/images/venere/details/side-vent.png", number:"02", title:"Scarico laterale", copy:"Il V8 si fa sentire e diventa parte della forma: uno sfogo laterale integra funzione, suono e presenza." },
@@ -20,15 +12,8 @@ const details = [
 ];
 
 export default function VenerePage() {
-  const [finish,setFinish]=useState(0);
-  const [wheels,setWheels]=useState<"silver"|"black">("silver");
-  const [expanded,setExpanded]=useState(false);
   const [technical,setTechnical]=useState<"engine"|"gearbox">("engine");
-  const selectedFinish=finishes[finish];
-  const configuredImage=`/images/configurator/three-quarter/${wheels}/${selectedFinish.slug}.png`;
 
-  useEffect(()=>{ const close=(event:KeyboardEvent)=>event.key==="Escape"&&setExpanded(false); window.addEventListener("keydown",close); return()=>window.removeEventListener("keydown",close); },[]);
-  useEffect(()=>{ document.body.classList.toggle("menu-locked",expanded); return()=>document.body.classList.remove("menu-locked"); },[expanded]);
   return <main className="venere-page">
     <section className="venere-cinematic"><img src={asset("/images/venere-front.png")} alt="Unica Venere"/><div className="model-hero-shade"/><div className="venere-title"><p>Unica Automobili · 01</p><img src={asset("/images/venere-wordmark.png")} alt="Venere"/><span>Gran Turismo, ricreata.</span></div><a href="#essenza" className="hero-scroll"><span/>Scopri Venere</a></section>
 
@@ -44,23 +29,7 @@ export default function VenerePage() {
 
     <section className="front-rear"><figure data-reveal><img src={asset("/images/venere/front.png")} alt="Vista frontale Venere"/><figcaption><span>Front</span><p>Una presenza bassa, larga, priva di aggressività gratuita.</p></figcaption></figure><figure data-reveal><img src={asset("/images/venere/rear-straight.png")} alt="Vista posteriore Venere"/><figcaption><span>Rear</span><p>Volumi pieni e una firma luminosa che chiude la forma.</p></figcaption></figure></section>
 
-    <section className="configurator-v3" id="configuratore">
-      <div className="config-v3-head" data-reveal><div><p className="section-tag light">/ Atelier digitale</p><h2>Disegna la tua<br/><em>Venere.</em></h2></div><div><span>Configurazione 01</span><p>Scegli la verniciatura e la finitura dei cerchi. Ogni combinazione è visualizzata sulla nuova vista tre quarti anteriore.</p></div></div>
-      <div className="config-v3-shell" data-reveal>
-        <div className="config-v3-stage">
-          <img key={`${selectedFinish.slug}-${wheels}`} src={asset(configuredImage)} alt={`Venere ${selectedFinish.name} con cerchi ${wheels==="silver"?"Silver":"Black"}`}/>
-          <div className="config-v3-badge"><span>VENERE</span><i/>3/4 FRONT</div>
-          <button className="config-expand" onClick={()=>setExpanded(true)} aria-label="Espandi immagine"><span>↗</span> Espandi</button>
-          <div className="config-stage-index">0{finish+1} <span>/</span> 0{finishes.length}</div>
-        </div>
-        <aside className="config-controls">
-          <div className="config-step"><div className="config-step-title"><span>01</span><div><small>Verniciatura</small><strong>{selectedFinish.name}</strong></div></div><div className="paint-options">{finishes.map((item,index)=>{const unavailable=wheels==="black"&&!item.black;return <button key={item.slug} disabled={unavailable} className={finish===index?"active":""} onClick={()=>setFinish(index)} aria-label={`${item.name}${unavailable?" — non ancora disponibile con cerchi Black":""}`}><i style={{backgroundColor:item.color}}/><span>{item.name}</span>{unavailable&&<small>In arrivo</small>}</button>})}</div></div>
-          <div className="config-step wheel-step"><div className="config-step-title"><span>02</span><div><small>Finitura cerchi</small><strong>{wheels==="silver"?"Silver":"Black"}</strong></div></div><div className="wheel-options"><button className={wheels==="silver"?"active":""} onClick={()=>setWheels("silver")}><i className="wheel-sample silver"/><span><strong>Silver</strong><small>Alluminio satinato</small></span></button><button disabled={!selectedFinish.black} className={wheels==="black"?"active":""} onClick={()=>setWheels("black")}><i className="wheel-sample black"/><span><strong>Black</strong><small>{selectedFinish.black?"Nero tecnico":"In preparazione"}</small></span></button></div></div>
-          <div className="config-recap"><div><span>La tua configurazione</span><strong>Venere · {selectedFinish.name} · {wheels==="silver"?"Silver":"Black"}</strong></div><a href={`mailto:atelier@unicaautomobili.it?subject=${encodeURIComponent(`Configurazione Venere — ${selectedFinish.name}, cerchi ${wheels}`)}`}>Condividi con l’atelier <span>↗</span></a></div>
-        </aside>
-      </div>
-      <p className="config-note">Le immagini rappresentano una selezione preliminare. Colori, materiali e finiture saranno sviluppati insieme al cliente in atelier.</p>
-      {expanded&&<div className="config-lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliata della configurazione"><button onClick={()=>setExpanded(false)} aria-label="Chiudi immagine">Chiudi <span>×</span></button><img src={asset(configuredImage)} alt={`Venere ${selectedFinish.name} con cerchi ${wheels}`}/><div><span>{selectedFinish.name}</span><i/>Cerchi {wheels==="silver"?"Silver":"Black"}</div></div>}
-    </section>
+    <section className="venere-config-entry" id="configuratore"><p className="section-tag light">/ Atelier digitale</p><h2>La tua interpretazione<br />di Venere.</h2><Link className="text-link" href="/configuratore/">Entra nel configuratore <span>↗</span></Link></section>
   </main>;
 }
+

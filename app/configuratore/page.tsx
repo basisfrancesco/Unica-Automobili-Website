@@ -1,160 +1,73 @@
 "use client";
 
-import { type CSSProperties, useEffect, useMemo, useState } from "react";
-import LayeredVenere, { type VenereLayerConfiguration } from "../components/LayeredVenere";
+import Link from "next/link";
+import { useState, type CSSProperties } from "react";
+import VenerePreview, { type VenereConfiguration } from "../components/VenerePreview";
+import { paints, wheels, calipers, interiors } from "../lib/venere-config";
+import { views, type Surface, type VenereView } from "../lib/venere-views";
+import "./configurator.css";
 
-const paints = [
-  { name: "Argento Venere", slug: "argento-venere", sample: "#c8c9c7", note: "Metallizzato" },
-  { name: "Rosso Notturno", slug: "rosso-notturno", sample: "#781c23", note: "Metallizzato" },
-  { name: "Blu Mezzanotte", slug: "blu-mezzanotte", sample: "#17334b", note: "Metallizzato" },
-  { name: "Verde Inglese", slug: "verde-inglese", sample: "#294437", note: "Metallizzato" },
-  { name: "Nero Ossidiana", slug: "nero-ossidiana", sample: "#151717", note: "Metallizzato" },
-  { name: "Bianco Perla", slug: "bianco-perla", sample: "#e8e4da", note: "Perlato" },
-  { name: "Giallo Amalfi", slug: "giallo-amalfi", sample: "#d6a623", note: "Metallizzato" },
-  { name: "Arancio Bruciato", slug: "arancio-bruciato", sample: "#9f4628", note: "Metallizzato" },
-  { name: "Grigio Titanio", slug: "grigio-titanio", sample: "#55585b", note: "Metallizzato" },
-  { name: "Bronzo Etna", slug: "bronzo-etna", sample: "#63402f", note: "Metallizzato" },
-  { name: "Viola Imperiale", slug: "viola-imperiale", sample: "#38283c", note: "Metallizzato" },
-  { name: "Azzurro Riviera", slug: "azzurro-riviera", sample: "#5798c7", note: "Metallizzato" },
+const initialConfiguration: VenereConfiguration = {
+  paint: paints[0], wheels: wheels[0], calipers: calipers[4], interiors: interiors[0],
+};
+const sections: { id: Surface; title: string; subtitle: string; options: { slug: string; name: string; sample: string; note?: string }[] }[] = [
+  { id: "paint", title: "Carrozzeria", subtitle: "Il colore della tua Venere.", options: paints },
+  { id: "wheels", title: "Cerchi", subtitle: "Tre interpretazioni dello stesso disegno.", options: wheels },
+  { id: "calipers", title: "Pinze freno", subtitle: "Un accento tra le razze.", options: calipers },
+  { id: "interiors", title: "Interni", subtitle: "Il tuo spazio, la tua materia.", options: interiors },
 ];
 
-const wheels = [
-  { name: "Argento Satinato", slug: "argento-satinato", sample: "#b7b8b5", note: "Firma Venere" },
-  { name: "Nero Satinato", slug: "nero-satinato", sample: "#242626", note: "Contrasto tecnico" },
-  { name: "Oro Champagne", slug: "oro-champagne", sample: "#a88a57", note: "Finitura atelier" },
-];
-
-const calipers = [
-  { name: "Rosso", slug: "rosso", sample: "#bb2027" },
-  { name: "Giallo", slug: "giallo", sample: "#e5b72f" },
-  { name: "Blu", slug: "blu", sample: "#205a86" },
-  { name: "Rame", slug: "rame", sample: "#a4633d" },
-  { name: "Grafite", slug: "grafite", sample: "#353b3c" },
-];
-
-const interiors = [
-  { name: "Nero Antracite", slug: "nero-antracite", sample: "#303334", note: "Pelle pieno fiore" },
-  { name: "Cuoio Naturale", slug: "cuoio-naturale", sample: "#9d572e", note: "Pelle pieno fiore" },
-  { name: "Bordeaux", slug: "bordeaux", sample: "#6f2631", note: "Pelle pieno fiore" },
-  { name: "Blu Notte", slug: "blu-notte", sample: "#263e5b", note: "Pelle pieno fiore" },
-  { name: "Avorio", slug: "avorio", sample: "#d9cfb8", note: "Pelle pieno fiore" },
-];
-
-type Panel = "paint" | "wheels" | "brakes" | "interior";
-
-export default function LayeredConfiguratorPage() {
-  const [paintIndex, setPaintIndex] = useState(1);
-  const [wheelIndex, setWheelIndex] = useState(0);
-  const [caliperIndex, setCaliperIndex] = useState(0);
-  const [interiorIndex, setInteriorIndex] = useState(0);
-  const [panel, setPanel] = useState<Panel>("paint");
-  const [expanded, setExpanded] = useState(false);
-
-  const configuration: VenereLayerConfiguration = useMemo(() => ({
-    paintSlug: paints[paintIndex].slug,
-    paintName: paints[paintIndex].name,
-    wheelSlug: wheels[wheelIndex].slug,
-    wheelName: wheels[wheelIndex].name,
-    caliperSlug: calipers[caliperIndex].slug,
-    caliperName: calipers[caliperIndex].name,
-    interiorSlug: interiors[interiorIndex].slug,
-    interiorName: interiors[interiorIndex].name,
-  }), [paintIndex, wheelIndex, caliperIndex, interiorIndex]);
-
-  useEffect(() => {
-    const close = (event: KeyboardEvent) => event.key === "Escape" && setExpanded(false);
-    window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
-  }, []);
-
-  useEffect(() => {
-    document.body.classList.toggle("menu-locked", expanded);
-    return () => document.body.classList.remove("menu-locked");
-  }, [expanded]);
-
-  const reset = () => {
-    setPaintIndex(0);
-    setWheelIndex(0);
-    setCaliperIndex(4);
-    setInteriorIndex(0);
-  };
-
-  const configurationLabel = `${paints[paintIndex].name} · ${wheels[wheelIndex].name} · Pinze ${calipers[caliperIndex].name} · Interni ${interiors[interiorIndex].name}`;
-
-  return (
-    <main className="layer-config-page">
-      <header className="layer-config-intro">
-        <div>
-          <p className="section-tag light">/ Atelier digitale · Venere</p>
-          <h1>Una Venere.<br /><em>La tua.</em></h1>
-        </div>
-        <div className="layer-config-intro-copy">
-          <span>Configuratore fotografico · Vista laterale</span>
-          <p>Il master originale rimane sempre integro. Vernice, ruote, freni e interni si innestano come ritagli sovrapposti, senza vuoti tra un elemento e l’altro.</p>
-        </div>
-      </header>
-
-      <section className="layer-config-workspace" aria-label="Configuratore Venere">
-        <div className="layer-config-visual">
-          <div className="layer-config-status"><i /> Master fotografico <span>Ritagli sovrapposti</span></div>
-          <LayeredVenere configuration={configuration} />
-          <button className="layer-config-expand" onClick={() => setExpanded(true)} aria-label="Apri la configurazione a schermo intero">Vista intera <span>↗</span></button>
-          <div className="layer-config-caption">
-            <span>Unica Venere</span>
-            <strong>{paints[paintIndex].name}</strong>
-            <small>{wheels[wheelIndex].name} · Pinze {calipers[caliperIndex].name} · Interni {interiors[interiorIndex].name}</small>
-          </div>
-        </div>
-
-        <aside className="layer-config-panel">
-          <div className="layer-config-tabs" role="tablist" aria-label="Sezioni del configuratore">
-            <button className={panel === "paint" ? "active" : ""} onClick={() => setPanel("paint")} role="tab" aria-selected={panel === "paint"}><span>01</span> Vernice</button>
-            <button className={panel === "wheels" ? "active" : ""} onClick={() => setPanel("wheels")} role="tab" aria-selected={panel === "wheels"}><span>02</span> Cerchi</button>
-            <button className={panel === "brakes" ? "active" : ""} onClick={() => setPanel("brakes")} role="tab" aria-selected={panel === "brakes"}><span>03</span> Pinze</button>
-            <button className={panel === "interior" ? "active" : ""} onClick={() => setPanel("interior")} role="tab" aria-selected={panel === "interior"}><span>04</span> Interni</button>
-          </div>
-
-          <div className="layer-config-options" role="tabpanel">
-            {panel === "paint" && <>
-              <div className="layer-option-heading"><span>Verniciatura</span><h2>{paints[paintIndex].name}</h2><p>Non una tinta digitale: ogni colore è una carrozzeria renderizzata con profondità, grana e riflessi propri.</p></div>
-              <div className="layer-paint-grid">{paints.map((paint, index) => <button key={paint.slug} className={paintIndex === index ? "active" : ""} onClick={() => setPaintIndex(index)} aria-pressed={paintIndex === index}><i style={{ background: paint.sample }} /><span>{paint.name}</span><small>{paint.note}</small></button>)}</div>
-            </>}
-
-            {panel === "wheels" && <>
-              <div className="layer-option-heading"><span>Finitura cerchi</span><h2>{wheels[wheelIndex].name}</h2><p>Ogni gruppo ruota è ritagliato sulla fotografia completa: passaruota, profondità e parti nascoste restano quelli del master.</p></div>
-              <div className="layer-wheel-grid">{wheels.map((wheel, index) => <button key={wheel.slug} className={wheelIndex === index ? "active" : ""} onClick={() => setWheelIndex(index)} aria-pressed={wheelIndex === index}><i className="layer-wheel-swatch" style={{ "--wheel-sample": wheel.sample } as CSSProperties} /><span><strong>{wheel.name}</strong><small>{wheel.note}</small></span><b>0{index + 1}</b></button>)}</div>
-            </>}
-
-            {panel === "brakes" && <>
-              <div className="layer-option-heading"><span>Pinze freno</span><h2>{calipers[caliperIndex].name}</h2><p>La variante interviene soltanto dove è visibile tra le razze; tutto ciò che rimane nascosto continua dal master sottostante.</p></div>
-              <div className="layer-caliper-grid">{calipers.map((caliper, index) => <button key={caliper.slug} className={caliperIndex === index ? "active" : ""} onClick={() => setCaliperIndex(index)} aria-pressed={caliperIndex === index}><i style={{ background: caliper.sample }} /><span>{caliper.name}</span></button>)}</div>
-            </>}
-
-            {panel === "interior" && <>
-              <div className="layer-option-heading"><span>Abitacolo</span><h2>{interiors[interiorIndex].name}</h2><p>Il rivestimento interessa soltanto le superfici dei sedili realmente visibili, preservando profili, ombre e bordi della carrozzeria.</p></div>
-              <div className="layer-interior-grid">{interiors.map((interior, index) => <button key={interior.slug} className={interiorIndex === index ? "active" : ""} onClick={() => setInteriorIndex(index)} aria-pressed={interiorIndex === index}><i style={{ background: interior.sample }} /><span><strong>{interior.name}</strong><small>{interior.note}</small></span></button>)}</div>
-            </>}
-          </div>
-
-          <div className="layer-config-actions">
-            <button onClick={reset}>Ripristina</button>
-            <a href={`mailto:atelier@unicaautomobili.it?subject=${encodeURIComponent(`Venere — ${configurationLabel}`)}`}>Invia all’atelier <span>↗</span></a>
-          </div>
-        </aside>
+export default function ConfiguratorPage() {
+  const [view, setView] = useState<VenereView>("side");
+  const [configuration, setConfiguration] = useState(initialConfiguration);
+  const label = Object.values(configuration).map(item => item.name).join(" · ");
+  const currentView = views.find(item => item.id === view)!;
+  return <main className="venere-studio">
+    <header className="studio-header">
+      <Link href="/venere/" className="studio-back"><span aria-hidden="true">←</span> Venere</Link>
+      <h1>Atelier <em>Venere</em></h1><span className="studio-edition">Unica Automobili</span>
+    </header>
+    <div className="studio-workspace">
+      <nav className="studio-views" aria-label="Scegli la vista dell’auto">
+        <span className="studio-eyebrow">Esplora</span>
+        {views.map((item, index) => <button key={item.id} type="button" className={view === item.id ? "selected" : ""}
+          aria-pressed={view === item.id} onClick={() => setView(item.id)}>
+          <span className="studio-view-number">0{index + 1}</span>
+          <VenerePreview view={item.id} configuration={initialConfiguration} thumbnail /><span>{item.label}</span>
+        </button>)}
+      </nav>
+      <section className="studio-stage" aria-label="Anteprima della tua Venere">
+        <div className="studio-stage-heading"><span className="studio-eyebrow">La tua Venere</span><span>{currentView.label}</span></div>
+        <div className="studio-image"><VenerePreview view={view} configuration={configuration} /></div>
+        <div className="studio-caption"><div><span className="studio-eyebrow">Verniciatura</span><h2>{configuration.paint.name}</h2></div>
+          <p>{configuration.wheels.name}<br />Interni {configuration.interiors.name}</p></div>
       </section>
-
-      <section className="layer-config-explainer">
-        <p className="section-tag light">/ Composizione</p>
-        <div><strong>01</strong><span>Master completo</span></div><div><strong>02</strong><span>Freni visibili</span></div><div><strong>03</strong><span>Gruppi ruota</span></div><div><strong>04</strong><span>Carrozzeria</span></div><div><strong>05</strong><span>Interni visibili</span></div>
-      </section>
-
-      <div className="sr-only" aria-live="polite">Configurazione aggiornata: {configurationLabel}.</div>
-
-      {expanded && <div className="layer-config-lightbox" role="dialog" aria-modal="true" aria-label="Configurazione Venere a schermo intero">
-        <LayeredVenere configuration={configuration} className="expanded" />
-        <button onClick={() => setExpanded(false)}>Chiudi <span>×</span></button>
-        <div><strong>{paints[paintIndex].name}</strong><span>{wheels[wheelIndex].name} · Pinze {calipers[caliperIndex].name} · Interni {interiors[interiorIndex].name}</span></div>
-      </div>}
-    </main>
-  );
+      <aside className="studio-panel" aria-label="Personalizza la tua Venere">
+        <div className="studio-panel-heading"><span className="studio-eyebrow">Su misura</span><h2>Ogni dettaglio, tuo.</h2></div>
+        <div className="studio-options" tabIndex={0} role="region" aria-label="Finiture e materiali, menu scorrevole">
+          {sections.map((section, index) => <fieldset className="studio-section" key={section.id}>
+            <legend><span>0{index + 1}</span>{section.title}</legend><p>{section.subtitle}</p>
+            {(section.id === "wheels" || section.id === "calipers") && view !== "side" &&
+              <button className="studio-side-hint" type="button" onClick={() => setView("side")}>Osserva il dettaglio nella vista laterale ↗</button>}
+            <div className={`studio-swatches studio-swatches-${section.id}`}>
+              {section.options.map(option => <label key={option.slug} className={configuration[section.id].slug === option.slug ? "chosen" : ""}>
+                <input type="radio" name={section.id} value={option.slug} checked={configuration[section.id].slug === option.slug}
+                  onChange={() => setConfiguration(previous => ({ ...previous, [section.id]: option }))} />
+                <span className="studio-swatch" style={{ "--finish": option.sample } as CSSProperties} aria-hidden="true" />
+                <span className="studio-option-name">{option.name}{option.note && <small>{option.note}</small>}</span>
+                <span className="studio-check" aria-hidden="true">✓</span>
+              </label>)}
+            </div>
+          </fieldset>)}
+          <section className="studio-summary" aria-label="Riepilogo configurazione"><h3>La tua selezione</h3>
+            <dl>{sections.map(section => <div key={section.id}><dt>{section.title}</dt><dd>{configuration[section.id].name}</dd></div>)}</dl>
+          </section>
+        </div>
+        <div className="studio-actions"><button type="button" onClick={() => setConfiguration(initialConfiguration)}>Ripristina</button>
+          <a href={`mailto:atelier@unicaautomobili.it?subject=${encodeURIComponent("La mia Venere")}&body=${encodeURIComponent(`Vorrei approfondire questa configurazione Venere:\n\n${sections.map(section => `${section.title}: ${configuration[section.id].name}`).join("\n")}`)}`}>Parlane con l’atelier <span aria-hidden="true">↗</span></a>
+        </div>
+      </aside>
+    </div>
+    <p className="studio-announcement" role="status" aria-live="polite">{currentView.label}. {label}.</p>
+  </main>;
 }
