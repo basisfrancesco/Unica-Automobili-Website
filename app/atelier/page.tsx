@@ -2,7 +2,7 @@ import { asset } from "../lib/assets";
 
 export default function AtelierPage() {
   return <main className="atelier-page">
-    <section className="atelier-photo-hero"><img src={asset("/images/atelier/atelier.png")} alt="Atelier Unica Automobili"/><div className="atelier-photo-shade"/><div><p className="section-tag light">/ L’atelier</p><h1>Dall’idea<br/><em>alla materia.</em></h1><p>Un solo luogo, tutte le competenze necessarie per costruire un’automobile coerente.</p></div></section>
+    <section className="atelier-photo-hero"><img src={asset("/images/V3/web/front-logo.webp")} alt="Dettaglio dello scudo Unica sul cofano della Venere V3 in officina"/><div className="atelier-photo-shade"/><div><p className="section-tag light">/ L’atelier</p><h1>Dall’idea<br/><em>alla materia.</em></h1><p>Un solo luogo, tutte le competenze necessarie per costruire un’automobile coerente.</p></div></section>
     <section className="atelier-intro" data-reveal><p className="section-tag">/ Il nostro metodo</p><h2>La tua automobile.<br/>Con noi, <em>dall’inizio alla fine.</em></h2></section>
     <section className="process-v2">
       <article data-reveal><div className="process-number">01</div><div><span>Conversazione</span><h3>Prima di tutto,<br/>ci conosciamo.</h3></div><p>Parli direttamente con noi. Vogliamo capire come guidi, cosa ami e ciò che nessuna automobile di serie riesce a darti.</p></article>

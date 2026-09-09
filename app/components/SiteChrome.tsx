@@ -43,7 +43,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     <div className={modelsOpen ? "models-dropdown open" : "models-dropdown"} aria-hidden={!modelsOpen}>
       <div className="dropdown-label"><span>La collezione</span><p>Due progetti. Una sola idea di automobile.</p></div>
       <Link className="dropdown-model" href="/venere/">
-        <img className="dropdown-photo" src={asset("/images/venere-side.png")} alt="" />
+        <img className="dropdown-photo" src={asset("/images/V3/web/front-three-quarter.webp")} alt="" />
         <span>01 · Gran Turismo</span><img className="dropdown-wordmark" src={asset("/images/venere-wordmark.png")} alt="Venere" /><i>Scopri ↗</i>
       </Link>
       <Link className="dropdown-model" href="/breadvan/">
