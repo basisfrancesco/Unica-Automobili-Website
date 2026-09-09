@@ -10,6 +10,13 @@ export const views: { id: VenereView; label: string; box: string; source: string
   { id: "rear", label: "Posteriore", box: "90 40 1190 715", source: "/images/configurator/V3/Master/rear.png", surfaces: ["paint", "interiors"] },
 ];
 
+// Only the painted layer switches source, keeping background and other materials stable.
+export const glossySources: Record<VenereView, string> = {
+  side: "/images/configurator/V3/Master/Side-lucid.png",
+  front: "/images/configurator/V3/Master/Front-Lucid.png",
+  rear: "/images/configurator/V3/Master/Rear-Lucid.png",
+};
+
 // These wheel apertures were traced independently on 3× inspection crops.
 // Only M/L/Q/C paths: each pair is a point, including Bézier control points.
 function fromCrop(path: string, left: number, top: number, zoom: number) {
@@ -77,8 +84,9 @@ export const cutouts: Record<VenereView, Partial<Record<Surface, Cutout>>> = {
       "M890 322 C896 313 908 301 916 289 C913 278 916 263 920 256 Q924 248 931 252 Q939 252 941 261 C944 279 937 298 927 310 L914 316 Z",
     ] },
     exhausts: { paths: [
-      fromCrop("M18 34 Q84 20 163 21 Q188 19 202 37 C225 64 251 105 272 138 Q276 145 261 148 L111 151 Q86 150 75 133 C53 100 33 65 18 34 Z", 475, 420, 4),
-      fromCrop("M83 157 Q155 143 262 150 Q277 151 289 173 C310 206 327 230 332 241 Q336 252 321 256 L171 268 Q136 267 123 249 C108 226 91 188 83 157 Z", 475, 420, 4),
+      // Just the two polished square lips, not their common dark mounting surround.
+      fromCrop("M62 52 C77 43 123 41 168 41 Q184 41 195 56 L232 110 Q239 126 221 131 L111 134 Q100 134 92 120 Z", 475, 420, 4),
+      fromCrop("M139 170 Q160 158 246 158 Q262 159 273 178 L303 230 Q310 247 292 250 L183 252 Q170 252 162 237 Z", 475, 420, 4),
     ], exclude: [
       fromCrop("M71 57 Q109 49 170 49 Q181 49 190 64 L225 112 Q228 119 217 120 L115 123 Q108 123 101 113 Z", 475, 420, 4),
       fromCrop("M148 175 Q187 167 248 167 Q261 167 269 181 L298 229 Q303 240 293 241 L184 242 Q175 241 169 232 Z", 475, 420, 4),

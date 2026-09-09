@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { cutouts, views } from '../app/lib/venere-views.ts';
+import { cutouts, views, glossySources } from '../app/lib/venere-views.ts';
 import { materialCurves } from '../app/lib/venere-materials.ts';
 import { paints, wheels, exhausts, calipers, interiors } from '../app/lib/venere-config.ts';
 const require = createRequire(import.meta.url);
@@ -22,7 +22,7 @@ const probes = {
     wheels: { inside: [[311,424],[1089,425],[238,480],[315,477],[1092,477]], outside: [[285,435],[1048,435],[218,477]] },
     calipers: { inside: [[363,487],[1040,480]], outside: [[315,477],[280,435],[341,462],[1089,425]] },
     interiors: { inside: [[909,264],[928,269]], outside: [[949,269],[850,280],[900,345]] },
-    exhausts: { inside: [[493,430],[509,458]], outside: [[511,442],[530,472],[565,457],[477,483]] },
+    exhausts: { inside: [[505,431],[530,460]], outside: [[511,442],[530,472],[565,457],[477,483],[485,430],[504,456],[552,485]] },
   },
   front: {
     paint: { inside: [[705,350],[359,560],[170,400]], outside: [[700,550],[235,362],[1175,362],[706,443],[701,160],[194,650],[20,20]] },
@@ -39,6 +39,9 @@ for (const view of views) {
   const header = await readFile(`public${view.source}`);
   assert.equal(header.readUInt32BE(16), 5504, `${view.id} width`);
   assert.equal(header.readUInt32BE(20), 3072, `${view.id} height`);
+  const glossy = await readFile(`public${glossySources[view.id]}`);
+  assert.equal(glossy.readUInt32BE(16), 5504, `${view.id} glossy width`);
+  assert.equal(glossy.readUInt32BE(20), 3072, `${view.id} glossy height`);
   const [x,y,w,h] = view.box.split(' ').map(Number);
   assert(x >= 0 && y >= 0 && x+w <= 1376 && y+h <= 768);
   raster[view.id] = {};
@@ -80,3 +83,13 @@ assert(whiteCurves.every(curve=>curve===whiteCurves[0]), 'Pure white wheels must
 const whiteValues = whiteCurves[0].split(' ').map(Number);
 assert(whiteValues[16]>.85 && whiteValues[28]<whiteValues[30] && whiteValues[30]<1, 'White stays bright without clipping highlight detail');
 console.log('PASS: all finish curves preserve shading; pure white wheels are neutral and retain highlight detail.');
+for (const paint of paints) {
+  const satin = materialCurves('paint', paint.sample, 'satinata');
+  const gloss = materialCurves('paint', paint.sample, 'lucida');
+  assert.notDeepEqual(satin, gloss, `${paint.slug} supports both finishes`);
+  for (const curve of satin) {
+    const values=curve.split(' ').map(Number);
+    assert(values.every((v,i)=>v>=0 && v<=1 && (i===0 || v>=values[i-1])));
+  }
+}
+console.log('PASS: 6 HD sources, glossy/satin response available for all 12 paints.');

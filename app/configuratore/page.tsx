@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { useState, type CSSProperties } from "react";
 import VenerePreview, { type VenereConfiguration } from "../components/VenerePreview";
-import { paints, wheels, calipers, interiors, exhausts } from "../lib/venere-config";
+import { paints, wheels, calipers, interiors, exhausts, paintFinishes } from "../lib/venere-config";
 import { views, type Surface, type VenereView } from "../lib/venere-views";
 import "./configurator.css";
 
 const initialConfiguration: VenereConfiguration = {
   paint: paints[0], wheels: wheels[0], calipers: calipers[4], interiors: interiors[0], exhausts: exhausts[0],
+  paintFinish: paintFinishes[0],
 };
 const sections: { id: Surface; title: string; subtitle: string; options: { slug: string; name: string; sample: string; note?: string }[] }[] = [
   { id: "paint", title: "Carrozzeria", subtitle: "Il colore della tua Venere.", options: paints },
@@ -40,7 +41,7 @@ export default function ConfiguratorPage() {
       <section className="studio-stage" aria-label="Anteprima della tua Venere">
         <div className="studio-stage-heading"><span className="studio-eyebrow">La tua Venere</span><span>{currentView.label}</span></div>
         <div className="studio-image"><VenerePreview view={view} configuration={configuration} /></div>
-        <div className="studio-caption"><div><span className="studio-eyebrow">Verniciatura</span><h2>{configuration.paint.name}</h2></div>
+        <div className="studio-caption"><div><span className="studio-eyebrow">Verniciatura · {configuration.paintFinish.name}</span><h2>{configuration.paint.name}</h2></div>
           <p>{configuration.wheels.name}<br />Interni {configuration.interiors.name}</p></div>
       </section>
       <aside className="studio-panel" aria-label="Personalizza la tua Venere">
@@ -48,6 +49,14 @@ export default function ConfiguratorPage() {
         <div className="studio-options" tabIndex={0} role="region" aria-label="Finiture e materiali, menu scorrevole">
           {sections.map((section, index) => <fieldset className="studio-section" key={section.id}>
             <legend><span>0{index + 1}</span>{section.title}</legend><p>{section.subtitle}</p>
+            {section.id === "paint" && <fieldset className="studio-finish">
+              <legend>Finitura</legend>
+              <div>{paintFinishes.map(finish => <label key={finish.slug} className={configuration.paintFinish.slug === finish.slug ? "chosen" : ""}>
+                <input type="radio" name="paint-finish" value={finish.slug} checked={configuration.paintFinish.slug === finish.slug}
+                  onChange={() => setConfiguration(previous => ({ ...previous, paintFinish: finish }))} />
+                <span>{finish.name}</span>
+              </label>)}</div>
+            </fieldset>}
             {(section.id === "wheels" || section.id === "calipers" || section.id === "exhausts") && view !== "side" &&
               <button className="studio-side-hint" type="button" onClick={() => setView("side")}>Osserva il dettaglio nella vista laterale ↗</button>}
             <div className={`studio-swatches studio-swatches-${section.id}`}>
@@ -61,14 +70,15 @@ export default function ConfiguratorPage() {
             </div>
           </fieldset>)}
           <section className="studio-summary" aria-label="Riepilogo configurazione"><h3>La tua selezione</h3>
-            <dl>{sections.map(section => <div key={section.id}><dt>{section.title}</dt><dd>{configuration[section.id].name}</dd></div>)}</dl>
+            <dl>{sections.map(section => <div key={section.id}><dt>{section.title}</dt><dd>{configuration[section.id].name}{section.id === "paint" && ` · ${configuration.paintFinish.name}`}</dd></div>)}</dl>
           </section>
         </div>
         <div className="studio-actions"><button type="button" onClick={() => setConfiguration(initialConfiguration)}>Ripristina</button>
-          <a href={`mailto:atelier@unicaautomobili.it?subject=${encodeURIComponent("La mia Venere")}&body=${encodeURIComponent(`Vorrei approfondire questa configurazione Venere:\n\n${sections.map(section => `${section.title}: ${configuration[section.id].name}`).join("\n")}`)}`}>Parlane con l’atelier <span aria-hidden="true">↗</span></a>
+          <a href={`mailto:atelier@unicaautomobili.it?subject=${encodeURIComponent("La mia Venere")}&body=${encodeURIComponent(`Vorrei approfondire questa configurazione Venere:\n\n${sections.map(section => `${section.title}: ${configuration[section.id].name}${section.id === "paint" ? ` · ${configuration.paintFinish.name}` : ""}`).join("\n")}`)}`}>Parlane con l’atelier <span aria-hidden="true">↗</span></a>
         </div>
       </aside>
     </div>
     <p className="studio-announcement" role="status" aria-live="polite">{currentView.label}. {label}.</p>
   </main>;
 }
+

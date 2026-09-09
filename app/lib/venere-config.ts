@@ -1,3 +1,9 @@
+export const paintFinishes = [
+  { slug: "lucida", name: "Lucida" },
+  { slug: "satinata", name: "Satinata" },
+] as const;
+export type PaintFinish = typeof paintFinishes[number]["slug"];
+
 export const paints = [
   { name: "Argento Venere", slug: "argento-venere", sample: "#c8c9c7", note: "Metallizzato" },
   { name: "Rosso Notturno", slug: "rosso-notturno", sample: "#781c23", note: "Metallizzato" },

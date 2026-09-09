@@ -7,6 +7,7 @@ rimane sopra il pannello, sempre visibile.
 
 - `../lib/venere-config.ts`: catalogo delle finiture. Ogni opzione ha slug,
   nome e colore esadecimale; aggiungere un’opzione non richiede nuove immagini.
+  `paintFinishes` rende Lucida e Satinata disponibili per tutti i 12 colori.
 - `../lib/venere-views.ts`: sorgenti, inquadrature e tracciati delle tre viste.
   Le coordinate 1376 × 768 sono esattamente un quarto delle foto HD.
 - `../components/VenerePreview.tsx`: composizione del master e dei livelli
@@ -19,6 +20,13 @@ Le sorgenti sono `public/images/configurator/V3/Master/side.png`, `front.png`
 e `rear.png`, ciascuna 5504 × 3072, utilizzate senza modificarle. Il vecchio
 collage non è più referenziato. L’inquadratura SVG elimina lo spazio superfluo
 intorno all’auto senza tagliarla e senza ridurre la risoluzione della sorgente.
+
+La finitura Lucida usa le nuove sorgenti `Side-lucid.png`, `Front-Lucid.png`
+e `Rear-Lucid.png` della stessa cartella, tutte 5504 × 3072. Solo il livello
+della carrozzeria cambia sorgente; sfondo, carbonio e componenti restano coerenti.
+Satinata usa le sorgenti precedenti e una curva luminosa più morbida. La scelta
+rimane selezionata cambiando colore o vista ed è inclusa in riepilogo, reset
+e messaggio per l’atelier. Lucida è la finitura iniziale.
 
 Le nove maschere indipendenti si trovano in
 `public/images/configurator/V3/masks/{side,front,rear}/` e sono utilizzate dal
@@ -35,7 +43,7 @@ nuovi materiali fisici. I riflessi provengono dalla luce fotografata. Le curve
 avvicinano i punti luminosi al bianco senza tingere le alte luci di giallo.
 I cerchi includono i coprimozzi nella finitura; Bianco Puro usa una risposta
 neutra più luminosa, preservando ombre e rilievi. Gli scarichi isolano le due
-cornici dal carbonio e dalle aperture e offrono acciaio lucido, titanio e nero
+sole cornici quadrate dal supporto comune, dal carbonio e dalle aperture e offrono acciaio lucido, titanio e nero
 ceramico. Le pinze grafite e gli interni antracite mantengono il master originale.
 
 ## Aggiornare e verificare
@@ -51,12 +59,17 @@ impostare `VENERE_SHARP_MODULE` al percorso del modulo.
    anteprime in `tmp/venere-mask-review`. Il controllo usa gli SVG esportati,
    gli stessi del configuratore, con vernice blu, cerchi champagne, pinze rosse,
    cuoio e scarichi neri. `--white-wheels` controlla cerchi bianchi e scarichi in
-   acciaio. Le immagini sono salvate come `*-gloss*.png`.
+   acciaio. `--satin` confronta la finitura satinata. Le immagini sono salvate
+   come `*-lucida*.png` e `*-satinata*.png`. Il render di ispezione incorpora
+   copie JPEG di alta qualità per contenere la dimensione del documento SVG;
+   il configuratore utilizza sempre i PNG HD originali.
 4. Senza `--write`, il controllo verifica anche che gli SVG esportati siano
    aggiornati rispetto ai tracciati sorgente.
 
 Il controllo verifica anche tutte le curve delle 29 finiture, la neutralità
-del bianco, il mantenimento del dettaglio nelle alte luci e i centri dei cerchi.
+del bianco, il mantenimento del dettaglio nelle alte luci, i centri dei cerchi,
+le sei sorgenti e le due finiture per ciascun colore. I punti di controllo degli
+scarichi escludono esplicitamente il supporto esterno e la fascia tra i terminali.
 
 Eseguiti i controlli geometrici e l’ispezione visiva offline delle tre viste,
 con ingrandimenti dei passaruota, cerchi, parabrezza, abitacolo e fari.
