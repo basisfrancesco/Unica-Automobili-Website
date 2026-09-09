@@ -25,6 +25,11 @@ body:has(.venere-studio) .scroll-progress { display: none; }
 .studio-image { min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 0 10px; }
 .studio-image .venere-preview { display: block; width: 100%; height: 100%; max-height: 100%; }
 .venere-preview { overflow: hidden; }
+.venere-render { position: relative; width: 100%; height: 100%; min-height: 0; }
+.render-message { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #72756f; }
+.studio-views .venere-render { height: 52px; margin: 4px 0 8px; }
+.studio-views .venere-render .venere-preview { width: 100%; height: 100%; margin: 0; }
+.studio-views .render-message { font-size: 8px; }
 .studio-caption { padding: 28px 30px; display: flex; align-items: end; justify-content: space-between; gap: 20px; }
 .studio-caption .studio-eyebrow { color: #70736d; }
 .studio-caption h2 { margin: 10px 0 0; font: 400 clamp(22px, 2.4vw, 37px)/1.1 Georgia, serif; }
@@ -39,13 +44,6 @@ body:has(.venere-studio) .scroll-progress { display: none; }
 .studio-section legend > span { font: 10px Arial, sans-serif; color: #8c816c; margin-right: 14px; vertical-align: middle; }
 .studio-section > p { font-size: 11px; line-height: 1.6; color: #72756f; margin: 12px 0 20px; }
 .studio-swatches { display: grid; gap: 8px; }
-.studio-finish { border: 0; padding: 0; margin: 0 0 22px; min-width: 0; }
-.studio-finish legend { font: 11px Arial, sans-serif; color: #72756f; margin-bottom: 10px; }
-.studio-finish > div { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.studio-finish label { position: relative; padding: 13px; border: 1px solid #20252220; text-align: center; font-size: 12px; cursor: pointer; }
-.studio-finish label.chosen { background: #172c32; border-color: #172c32; color: white; }
-.studio-finish input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
-.studio-finish label:has(input:focus-visible) { outline: 2px solid #937547; outline-offset: 3px; }
 .studio-swatches-paint { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .studio-swatches label { position: relative; display: flex; align-items: center; gap: 12px; padding: 12px; min-height: 60px; border: 1px solid #20252220; border-radius: 2px; cursor: pointer; }
 .studio-swatches-paint label { flex-direction: column; align-items: flex-start; gap: 12px; padding: 14px 10px; }
@@ -54,15 +52,11 @@ body:has(.venere-studio) .scroll-progress { display: none; }
 .studio-swatches input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; margin: 0; cursor: pointer; }
 .studio-swatches label:has(input:focus-visible) { outline: 2px solid #937547; outline-offset: 3px; }
 .studio-swatch { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #ffffff70, transparent 50%, #0005), var(--finish); box-shadow: inset 0 0 0 1px #0002; }
-.studio-swatches-interiors .studio-swatch { border-radius: 4px; }
-.studio-swatches-exhausts .studio-swatch { border-radius: 6px; border: 3px solid var(--finish); background: linear-gradient(135deg, #ffffffa0, transparent 45%, #0008), var(--finish); box-shadow: inset 0 0 0 6px #282c2d, inset 0 0 0 7px #ffffff60; }
-.studio-swatches-wheels .studio-swatch { border: 4px solid #30322f; background: radial-gradient(circle, var(--finish) 12%, transparent 14% 58%, var(--finish) 60%), repeating-conic-gradient(var(--finish) 0deg 14deg, #30322f 15deg 72deg); }
 .studio-option-name { font-size: 11px; line-height: 1.4; padding-right: 8px; }
 .studio-option-name small { display: block; margin-top: 4px; font-size: 9px; color: #76786f; }
 .studio-check { margin-left: auto; font-size: 12px; color: #716047; visibility: hidden; }
 .studio-swatches-paint .studio-check { position: absolute; right: 10px; top: 14px; }
 .chosen .studio-check { visibility: visible; }
-.studio-side-hint { border: 0; padding: 0 0 18px; background: none; text-align: left; font-size: 11px; line-height: 1.6; color: #776243; text-decoration: underline; text-underline-offset: 3px; }
 .studio-summary h3 { font: 400 24px Georgia, serif; margin-bottom: 22px; }
 .studio-summary dl { margin: 0; }
 .studio-summary dl > div { display: flex; justify-content: space-between; gap: 12px; margin: 14px 0; font-size: 11px; line-height: 1.5; }
@@ -93,6 +87,7 @@ body:has(.venere-studio) .scroll-progress { display: none; }
   .studio-views > .studio-eyebrow, .studio-view-number { display: none; }
   .studio-views button { padding: 4px 2px; font-size: 9px; min-height: 44px; }
   .studio-views .venere-preview { height: 25px; margin: 0 0 3px; }
+  .studio-views .venere-render { height: 25px; margin: 0 0 3px; }
   .studio-stage-heading { padding: 10px 12px; font-size: 9px; }
   .studio-stage-heading .studio-eyebrow { font-size: 8px; }
   .studio-caption { padding: 8px 12px 12px; }
@@ -111,6 +106,7 @@ body:has(.venere-studio) .scroll-progress { display: none; }
   .studio-views > .studio-eyebrow { display: none; }
   .studio-views button { padding: 4px; }
   .studio-views .venere-preview { height: 30px; margin: 0; }
+  .studio-views .venere-render { height: 30px; margin: 0; }
   .studio-stage-heading, .studio-caption { padding: 12px 18px; }
   .studio-caption p { display: none; }
   .studio-panel-heading { padding: 12px 20px; }
