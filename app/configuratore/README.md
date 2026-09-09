@@ -1,52 +1,69 @@
-# Configuratore basato sui render
+# Configuratore fotografico 3View
 
-Il configuratore mostra esclusivamente i file forniti in
-`public/images/configurator/V3/render/`. La prima selezione contiene Argento,
-Blu e Nero, disponibili nella sola vista laterale. I cerchi sono selezionabili
-in Argento o Nero: sei combinazioni, sempre usando i pixel delle foto originali.
-Le carrozzerie sono in `render/Side-View/carrozzeria/`; il render con cerchi neri
-è in `render/Side-View/Cerchi/nero.png`.
+Le sorgenti attive sono in `public/images/configurator/V3/render/3View/`:
+Body (argento, blu, verde inglese), Cerchi (argento, nero, oro),
+Interni (nero, bianco, blu, marrone), pinze (argento, giallo),
+scarichi (argento, nero). Sono 144 configurazioni con tre viste.
 
-Il layout mantiene l’auto visibile e lo scorrimento indipendente del pannello.
-Il componente `VenereRender` sovrappone due PNG trasparenti dei cerchi al render
-della carrozzeria. Non applica maschere SVG o filtri di ricolorazione. Il viewport
-inquadra l’auto eliminando soltanto il margine vuoto dello studio. L’immagine
-diventa visibile quando base e ritagli sono caricati, evitando di mostrare
-temporaneamente i cerchi della combinazione precedente.
+Ogni sorgente è una tavola 5504 × 3072. Lo script applica gli stessi
+rettangoli a tutte le tavole: laterale sopra, frontale sotto a sinistra,
+posteriore sotto a destra. Coordinate e contorni sono espressi su una
+tavola di riferimento larga 1400 pixel, poi convertiti alla risoluzione
+nativa. Un ritaglio comune conserva l'allineamento delle sorgenti: non
+corregge una diversa prospettiva o geometria in eventuali nuove foto.
 
-## Ritagli fotografici
+## Generazione
 
-I quattro file in `public/images/configurator/V3/cutouts/wheels/` contengono
-ruota anteriore e posteriore per ciascuna finitura, scontornate con trasparenza.
-Argento è estratto dal render argento; Nero dalla nuova foto dedicata. Il
-contorno segue il bordo del cerchio con un piccolo margine interno al pneumatico.
-Disco e pinza visibili tra le razze fanno parte del ritaglio fotografico; non
-sono opzioni indipendenti in questa versione.
+Con Node >= 22 e sharp installato (o percorso del modulo in
+`VENERE_SHARP_MODULE`):
 
-`app/lib/venere-wheel-cutouts.json` contiene posizione e dimensioni dei ritagli,
-calcolate tenendo conto delle diverse risoluzioni delle sorgenti. Non modificare
-il file manualmente: rigenerarlo con lo script di estrazione.
+- `node scripts/build-venere-3view.mjs`
+- `node scripts/review-venere-3view.mjs`
 
-Con Node >= 22 e `sharp` (o `VENERE_SHARP_MODULE` per un runtime esterno):
+Il primo script genera le immagini in `public/images/configurator/V3/generated/`
+e il catalogo `app/lib/venere-3view.json`. Gli originali non vengono modificati.
+I contorni servono solo offline per estrarre i pixel fotografici e la loro
+trasparenza. Non vengono applicati filtri colore o maschere nel browser.
 
-- `node scripts/build-venere-wheel-cutouts.mjs`: estrae i quattro PNG con alpha
-  e rigenera le coordinate; le foto originali restano intatte.
-- `node scripts/review-venere-wheel-cutouts.mjs`: controlla la trasparenza e
-  produce tutte le sei combinazioni in `tmp/venere-wheel-review/`, senza server.
+L'ordine è carrozzeria, cerchi, interni, pinze, scarichi. I cerchi comprendono
+il mozzo e il disco originale; le pinze sono ritagliate separatamente nelle
+aperture delle razze. La foto delle pinze gialle fornisce il contorno, inclusa
+la scritta, per entrambe le finiture. Gli scarichi comprendono solo i due
+terminali laterali, escludendo il pannello in carbonio circostante.
+Gli interni hanno ritagli specifici per ciascuna vista.
 
-## Aggiungere materiale
+Cerchi, pinze e terminali sono visibili nella laterale. Nelle due viste
+ortogonali fronte/retro sono nascosti: le selezioni restano memorizzate,
+senza sovrapposizioni. In particolare, le gomme dorate errate del render
+dei cerchi oro non vengono mai importate.
 
-1. Salvare il nuovo render nella cartella pubblica.
-2. Aggiungere colore, nome, campione e percorsi in `app/lib/venere-renders.ts`.
-3. Per una nuova vista aggiungere `front` o `rear` al campo `images` del colore.
-   La navigazione mostra automaticamente solo le viste realmente disponibili.
-4. Se necessario regolare `framing` della vista per l’inquadratura, mantenendo
-   visibili tutta l’auto e l’ombra.
-5. Per nuove viste o finiture dei cerchi aggiungere i ritagli corrispondenti in
-   `renderWheels`, prima di abilitare la nuova combinazione.
+## Caricamento e layout
 
-I PNG vengono utilizzati nella loro risoluzione originale. Argento è 3855 × 2152;
-Blu e Nero sono 5504 × 3072. Non è necessario uniformare la risoluzione.
+Basi WebP qualità 94 (2200 px laterale, 1400 px fronte/retro), ritagli WebP
+con alpha lossless dopo ridimensionamento e miniature da 240 px.
+Le miniature sono riferimenti della vista e del colore carrozzeria;
+i dettagli configurabili sono mostrati nell'anteprima principale.
+La prima configurazione usa circa 380 KiB di immagini; il catalogo completo
+circa 2,7 MiB. Sono pesi dei file, non tempi di rete misurati.
 
-Il precedente motore di ricolorazione rimane rimosso. I vecchi master non sono
-usati da questa versione. La verifica è offline; nessun server o commit avviato.
+Il renderer condivide i download, precarica su hover/focus e sostituisce
+l'intera composizione solo dopo la decodifica dei nuovi file. La precedente
+immagine rimane visibile con indicatore di caricamento. Le richieste obsolete
+non possono sostituire una selezione più recente. Gli URL includono un hash
+del contenuto per evitare asset vecchi nella cache. Non è necessario caricare
+le altre combinazioni all'apertura.
+
+Il layout mantiene l'auto visibile, tre viste a sinistra e solo il menu
+opzioni scorrevole a destra. Su mobile l'anteprima rimane sopra il menu.
+
+## Verifica e nuovo materiale
+
+Lo script di verifica controlla tutte le 144 selezioni nelle tre viste,
+file, registrazione, alpha e assenza di sovrapposizioni cerchi/pinze/scarichi
+sulle gomme frontali e posteriori. Produce 21 composizioni in
+`tmp/3view-review/` per la verifica visiva, senza avviare un server.
+
+Per aggiungere una finitura, inserire la tavola nel gruppo corretto,
+aggiungerla a `scripts/build-venere-3view.mjs`, rigenerare e ispezionare
+gli abbinamenti. Cambiamenti di geometria richiedono nuovi contorni.
+I vecchi render e ritagli non sono referenziati dal catalogo corrente.

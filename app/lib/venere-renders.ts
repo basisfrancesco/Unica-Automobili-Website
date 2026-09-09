@@ -1,32 +1,12 @@
-import wheelCutouts from "./venere-wheel-cutouts.json";
-
+import library from "./venere-3view.json";
 export type RenderView = "side" | "front" | "rear";
 export type RenderCutout = { id: string; src: string; x: number; y: number; width: number; height: number };
-export type RenderWheel = { slug: string; name: string; sample: string; overlays: Partial<Record<RenderView, RenderCutout[]>> };
-export const renderWheels: RenderWheel[] = [
-  { slug: "argento", name: "Argento", sample: "#bebbc0", overlays: { side: wheelCutouts.argento } },
-  { slug: "nero", name: "Nero", sample: "#252329", overlays: { side: wheelCutouts.nero } },
-];
-export type RenderColour = {
-  slug: string;
-  name: string;
-  sample: string;
-  images: Partial<Record<RenderView, string>>;
-};
-
-// Only list views backed by a supplied render. No generated colours or finishes.
-export const renderColours: RenderColour[] = [
-  { slug: "argento", name: "Argento", sample: "#bebbc0", images: { side: "/images/configurator/V3/render/Side-View/carrozzeria/argento.png" } },
-  { slug: "blu", name: "Blu", sample: "#193e77", images: { side: "/images/configurator/V3/render/Side-View/carrozzeria/blu.png" } },
-  { slug: "nero", name: "Nero", sample: "#252329", images: { side: "/images/configurator/V3/render/Side-View/carrozzeria/nero.png" } },
-];
-export const renderViews: { id: RenderView; label: string; framing: string }[] = [
-  // Framing crops only the empty studio margin. The complete car remains visible.
-  { id: "side", label: "Laterale", framing: "40 150 930 290" },
-  { id: "front", label: "Frontale", framing: "0 0 1000 558" },
-  { id: "rear", label: "Posteriore", framing: "0 0 1000 558" },
-];
-
-export function availableViews(colour: RenderColour) {
-  return renderViews.filter(view => Boolean(colour.images[view.id]));
+export type RenderOption = { slug: string; name: string; sample: string; overlays: Partial<Record<RenderView, RenderCutout[]>> };
+export type RenderGroup = { id: string; label: string; options: RenderOption[] };
+export type RenderColour = { slug: string; name: string; sample: string; images: Record<RenderView, string>; thumbnails: Record<RenderView, string> };
+export const renderColours: RenderColour[] = library.colours;
+export const renderGroups: RenderGroup[] = library.groups;
+export const renderViews = library.views as { id: RenderView; label: string; framing: string; height: number }[];
+export function selectedOverlays(selection: Record<string, number>, view: RenderView) {
+  return renderGroups.flatMap(group => group.options[selection[group.id] ?? 0].overlays[view] ?? []);
 }

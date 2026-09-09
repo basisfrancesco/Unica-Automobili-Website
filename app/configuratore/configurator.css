@@ -27,6 +27,7 @@ body:has(.venere-studio) .scroll-progress { display: none; }
 .venere-preview { overflow: hidden; }
 .venere-render { position: relative; width: 100%; height: 100%; min-height: 0; }
 .render-message { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #72756f; }
+.render-message.has-frame { inset: auto 0 0; padding: 8px; background: #faf9f6e8; gap: 6px; }
 .studio-views .venere-render { height: 52px; margin: 4px 0 8px; }
 .studio-views .venere-render .venere-preview { width: 100%; height: 100%; margin: 0; }
 .studio-views .render-message { font-size: 8px; }
