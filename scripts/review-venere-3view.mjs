@@ -16,7 +16,7 @@ for(const colour of library.colours)for(const selection of combinations){
   }
   configurations++;
 }
-assert.equal(configurations,144);
+assert.equal(configurations,1440);
 let bytes=0;
 for(const colour of library.colours)for(const view of library.views) {
   for(const src of [colour.images[view.id],colour.thumbnails[view.id]])bytes+=(await stat(local(src))).size;
@@ -28,6 +28,14 @@ for(const group of library.groups)for(const option of group.options)for(const [v
   let transparent=0,opaque=0;for(let i=3;i<data.length;i+=4){if(data[i]===0)transparent++;if(data[i]===255)opaque++;}
   assert(transparent>0&&opaque>0,`${group.id}/${option.slug}/${viewId}: invalid alpha`);
   if(group.id==='calipers')assert(opaque<info.width*info.height*.1,'Caliper cutout must not cover spokes or body');
+  if(group.id==='interior' && viewId==='rear') {
+    // The painted bridge between the fairings must stay untouched in every interior.
+    for(let y=0;y<info.height;y++)for(let x=0;x<info.width;x++){
+      const sheetX=760+(part.x+x/info.width*part.width)*580/1000;
+      const sheetY=418+(part.y+y/info.height*part.height)*580/1000;
+      if(sheetX>1000&&sheetX<1100&&sheetY>468) assert.equal(data[(y*info.width+x)*4+3],0,'Interior leaks onto rear body reflection');
+    }
+  }
   bytes+=(await stat(local(part.src))).size;
 }
 // Wheels/exhaust/calipers are occluded in these orthographic front/rear views.
@@ -41,8 +49,8 @@ async function render(colour, selections, view, name) {
   await sharp(local(colour.images[view.id])).resize(width,height).composite(composites).png().toFile(output);
   return output;
 }
-for(const [i,colour] of library.colours.entries())for(const view of library.views)await render(colour,[i,1,1,1],view,colour.slug);
+for(const [i,colour] of library.colours.entries())for(const view of library.views)await render(colour,[i % library.groups[0].options.length,4,3,2],view,colour.slug);
 for(const [i,option] of library.groups[1].options.entries())for(const view of library.views)await render(library.colours[1],[1,i,0,0],view,`interior-${option.slug}`);
 const initial=[library.colours[0].images.side,...Object.values(library.colours[0].thumbnails),...library.groups.flatMap(g=>(g.options[0].overlays.side??[]).map(p=>p.src))];
 let initialBytes=0;for(const src of initial)initialBytes+=(await stat(local(src))).size;
-console.log(`PASS: complete 3-view catalogue, 144 configurations, isolated alpha cutouts, no gold tyres. Initial assets ${(initialBytes/1024).toFixed(0)} KiB; total referenced assets ${(bytes/1024/1024).toFixed(2)} MiB. 21 visual previews written.`);
+console.log(`PASS: complete 3-view catalogue, ${configurations} configurations, isolated alpha cutouts, no gold tyres. Initial assets ${(initialBytes/1024).toFixed(0)} KiB; total referenced assets ${(bytes/1024/1024).toFixed(2)} MiB. Visual previews written.`);

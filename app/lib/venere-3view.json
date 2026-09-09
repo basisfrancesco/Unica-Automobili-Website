@@ -64,6 +64,51 @@
         "front": "/images/configurator/V3/generated/thumb-verde-inglese-front-dc24facfd5.webp",
         "rear": "/images/configurator/V3/generated/thumb-verde-inglese-rear-5cf0670e4f.webp"
       }
+    },
+    {
+      "slug": "arancione",
+      "name": "Arancione",
+      "sample": "#d97525",
+      "images": {
+        "side": "/images/configurator/V3/generated/body-arancione-side-0bf04f3af7.webp",
+        "front": "/images/configurator/V3/generated/body-arancione-front-09a831e176.webp",
+        "rear": "/images/configurator/V3/generated/body-arancione-rear-4cfb5fe676.webp"
+      },
+      "thumbnails": {
+        "side": "/images/configurator/V3/generated/thumb-arancione-side-bb6d97a164.webp",
+        "front": "/images/configurator/V3/generated/thumb-arancione-front-efc12bec19.webp",
+        "rear": "/images/configurator/V3/generated/thumb-arancione-rear-63f5d33641.webp"
+      }
+    },
+    {
+      "slug": "azzurro",
+      "name": "Azzurro",
+      "sample": "#76aeca",
+      "images": {
+        "side": "/images/configurator/V3/generated/body-azzurro-side-b16ff3d470.webp",
+        "front": "/images/configurator/V3/generated/body-azzurro-front-73534b4bd8.webp",
+        "rear": "/images/configurator/V3/generated/body-azzurro-rear-b675e32594.webp"
+      },
+      "thumbnails": {
+        "side": "/images/configurator/V3/generated/thumb-azzurro-side-d9d8c27b8d.webp",
+        "front": "/images/configurator/V3/generated/thumb-azzurro-front-f1d08d4396.webp",
+        "rear": "/images/configurator/V3/generated/thumb-azzurro-rear-62230ce46a.webp"
+      }
+    },
+    {
+      "slug": "rosso-scuro",
+      "name": "Rosso scuro",
+      "sample": "#652334",
+      "images": {
+        "side": "/images/configurator/V3/generated/body-rosso-scuro-side-7fc86fed4b.webp",
+        "front": "/images/configurator/V3/generated/body-rosso-scuro-front-67c261f870.webp",
+        "rear": "/images/configurator/V3/generated/body-rosso-scuro-rear-672241c4f6.webp"
+      },
+      "thumbnails": {
+        "side": "/images/configurator/V3/generated/thumb-rosso-scuro-side-b0973e2658.webp",
+        "front": "/images/configurator/V3/generated/thumb-rosso-scuro-front-fe277a7937.webp",
+        "rear": "/images/configurator/V3/generated/thumb-rosso-scuro-rear-7f416040b4.webp"
+      }
     }
   ],
   "groups": [
@@ -121,6 +166,23 @@
               }
             ]
           }
+        },
+        {
+          "slug": "bianco",
+          "name": "Bianco",
+          "sample": "#ffffff",
+          "overlays": {
+            "side": [
+              {
+                "id": "wheels",
+                "src": "/images/configurator/V3/generated/wheels-bianco-side-2358af1db5.webp",
+                "x": 134.28047662694775,
+                "y": 140.4674610449129,
+                "width": 745.8753437213566,
+                "height": 137.4885426214482
+              }
+            ]
+          }
         }
       ]
     },
@@ -156,11 +218,11 @@
             "rear": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-nero-rear-6fd0b0f831.webp",
+                "src": "/images/configurator/V3/generated/interior-nero-rear-c25c2bd08a.webp",
                 "x": 237.71929824561403,
                 "y": 30.26315789473684,
                 "width": 526.3157894736842,
-                "height": 89.03508771929825
+                "height": 63.1578947368421
               }
             ]
           }
@@ -193,11 +255,11 @@
             "rear": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-bianco-rear-6d0dc2abfd.webp",
+                "src": "/images/configurator/V3/generated/interior-bianco-rear-6d481d0e99.webp",
                 "x": 237.71929824561403,
                 "y": 30.26315789473684,
                 "width": 526.3157894736842,
-                "height": 89.03508771929825
+                "height": 63.1578947368421
               }
             ]
           }
@@ -230,11 +292,11 @@
             "rear": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-blu-rear-eff207e1d1.webp",
+                "src": "/images/configurator/V3/generated/interior-blu-rear-ffbe9dce91.webp",
                 "x": 237.71929824561403,
                 "y": 30.26315789473684,
                 "width": 526.3157894736842,
-                "height": 89.03508771929825
+                "height": 63.1578947368421
               }
             ]
           }
@@ -267,11 +329,48 @@
             "rear": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-marrone-rear-3ea2ed7ed4.webp",
+                "src": "/images/configurator/V3/generated/interior-marrone-rear-b5dc294794.webp",
                 "x": 237.71929824561403,
                 "y": 30.26315789473684,
                 "width": 526.3157894736842,
-                "height": 89.03508771929825
+                "height": 63.1578947368421
+              }
+            ]
+          }
+        },
+        {
+          "slug": "panna",
+          "name": "Panna",
+          "sample": "#e6d5b5",
+          "overlays": {
+            "side": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-panna-side-3f08cd2de1.webp",
+                "x": 505.27039413382215,
+                "y": 26.12282309807516,
+                "width": 191.33822181484877,
+                "height": 69.43171402383135
+              }
+            ],
+            "front": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-panna-front-ef9164a7b1.webp",
+                "x": 204.70786044556536,
+                "y": 37.83102143757881,
+                "width": 587.2215216477512,
+                "height": 119.37788986969315
+              }
+            ],
+            "rear": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-panna-rear-a40ebdb0b9.webp",
+                "x": 237.71929824561403,
+                "y": 30.26315789473684,
+                "width": 526.3157894736842,
+                "height": 63.1578947368421
               }
             ]
           }
@@ -315,6 +414,40 @@
               }
             ]
           }
+        },
+        {
+          "slug": "nero",
+          "name": "Nero",
+          "sample": "#252329",
+          "overlays": {
+            "side": [
+              {
+                "id": "calipers",
+                "src": "/images/configurator/V3/generated/calipers-nero-side-80a104744e.webp",
+                "x": 232.81393217231897,
+                "y": 169.79835013748854,
+                "width": 549.4958753437213,
+                "height": 76.5352887259395
+              }
+            ]
+          }
+        },
+        {
+          "slug": "rosso",
+          "name": "Rosso",
+          "sample": "#bb2633",
+          "overlays": {
+            "side": [
+              {
+                "id": "calipers",
+                "src": "/images/configurator/V3/generated/calipers-rosso-side-3df3fe53dc.webp",
+                "x": 232.81393217231897,
+                "y": 169.79835013748854,
+                "width": 549.4958753437213,
+                "height": 76.5352887259395
+              }
+            ]
+          }
         }
       ]
     },
@@ -348,6 +481,23 @@
               {
                 "id": "exhaust",
                 "src": "/images/configurator/V3/generated/exhaust-nero-side-891c0ca406.webp",
+                "x": 331.57653528872595,
+                "y": 167.96516956920257,
+                "width": 62.328139321723185,
+                "height": 52.24564619615032
+              }
+            ]
+          }
+        },
+        {
+          "slug": "titanio",
+          "name": "Titanio",
+          "sample": "#496c9f",
+          "overlays": {
+            "side": [
+              {
+                "id": "exhaust",
+                "src": "/images/configurator/V3/generated/exhaust-titanio-side-27cfb23464.webp",
                 "x": 331.57653528872595,
                 "y": 167.96516956920257,
                 "width": 62.328139321723185,

@@ -25,14 +25,14 @@ const interiorShapes = {
   side: '<path d="M706 153 L716 129 Q722 131 731 132 L730 128 Q728 123 733 122 Q737 121 740 128 L745 133 Q815 139 859 124 Q876 118 879 110 Q877 91 881 82 Q886 74 893 79 L899 84 Q907 80 913 86 Q918 88 918 98 L916 115 Q910 127 902 135 Q873 148 843 150 L747 154 Z"/>',
   front: '<path d="M179 515 Q197 486 222 454 Q249 446 284 445 L328 444 Q354 442 382 444 Q455 444 481 452 Q509 480 534 515 Q466 512 400 513 L307 514 Z"/>',
   // Only the interior behind the roll hoops, never the painted rear fairings.
-  rear: '<path d="M902 467 Q919 451 940 451 Q961 449 969 461 L972 465 Q940 463 917 467 L898 472 Z M1128 465 L1134 457 Q1151 447 1174 453 Q1193 457 1203 470 L1193 467 Q1165 463 1128 465 Z M972 437 Q1050 434 1129 437 L1111 472 Q1104 487 1090 487 L1015 487 Q1002 487 991 474 Z"/>',
+  rear: '<path d="M902 467 Q919 451 940 451 Q961 449 969 461 L972 465 Q940 463 917 467 L898 472 Z M1128 465 L1134 457 Q1151 447 1174 453 Q1193 457 1203 470 L1193 467 Q1165 463 1128 465 Z M972 437 Q1050 434 1129 437 L1125 445 Q1096 442 1074 448 L1071 460 Q1069 465 1062 465 L1040 465 Q1033 465 1031 460 L1028 449 Q1002 443 980 446 Z"/>',
 };
 const exhaustShape = `<g transform="translate(${2000/scale} ${900/scale}) scale(${1/scale})"><path d="M18 37 Q15 29 32 27 L146 22 Q165 22 178 38 L229 112 Q239 132 211 136 L100 144 Q75 145 65 128 Z M79 148 Q72 136 98 133 L210 128 Q231 126 244 146 L284 211 Q298 234 268 240 L156 249 Q130 251 120 232 Z"/></g>`;
 const groups = [
-  { id:'wheels', label:'Cerchi', folder:'Cerchi', shapes:{side:wheelShape}, options:[['argento','Argento','#bebbc0'],['nero','Nero','#252329'],['oro','Oro','#b29865']] },
-  { id:'interior', label:'Interni', folder:'Interni', shapes:interiorShapes, options:[['nero','Nero','#252329'],['bianco','Bianco','#f4f0e9'],['blu','Blu','#334d78'],['marrone','Marrone','#825236']] },
-  { id:'calipers', label:'Pinze', folder:'pinze', shapes:{side:'calipers'}, options:[['argento','Argento','#bebbc0'],['giallo','Giallo','#e9c920']] },
-  { id:'exhaust', label:'Scarichi', folder:'scarichi', shapes:{side:exhaustShape}, options:[['argento','Argento','#bebbc0'],['nero','Nero','#252329']] },
+  { id:'wheels', label:'Cerchi', folder:'Cerchi', shapes:{side:wheelShape}, options:[['argento','Argento','#bebbc0'],['nero','Nero','#252329'],['oro','Oro','#b29865'],['bianco','Bianco','#ffffff']] },
+  { id:'interior', label:'Interni', folder:'Interni', shapes:interiorShapes, options:[['nero','Nero','#252329'],['bianco','Bianco','#f4f0e9'],['blu','Blu','#334d78'],['marrone','Marrone','#825236'],['panna','Panna','#e6d5b5']] },
+  { id:'calipers', label:'Pinze', folder:'pinze', shapes:{side:'calipers'}, options:[['argento','Argento','#bebbc0'],['giallo','Giallo','#e9c920'],['nero','Nero','#252329'],['rosso','Rosso','#bb2633']] },
+  { id:'exhaust', label:'Scarichi', folder:'scarichi', shapes:{side:exhaustShape}, options:[['argento','Argento','#bebbc0'],['nero','Nero','#252329'],['titanio','Titanio','#496c9f']] },
 ];
 const manifest = { views: Object.entries(views).map(([id,v])=>({id,label:v.label,framing:`0 0 1000 ${v.height}`,height:v.height})), colours:[], groups:[] };
 let bytes = 0;
@@ -50,7 +50,7 @@ async function source(folder, name) {
   if (meta.width !== 5504 || meta.height !== 3072) throw new Error(`Unexpected sheet size: ${path}`);
   return path;
 }
-for (const [slug,name,sample] of [['argento','Argento','#bebbc0'],['blu','Blu','#193e77'],['verde inglese','Verde inglese','#183e31']]) {
+for (const [slug,name,sample] of [['argento','Argento','#bebbc0'],['blu','Blu','#193e77'],['verde inglese','Verde inglese','#183e31'],['arancione','Arancione','#d97525'],['azzurro','Azzurro','#76aeca'],['rosso scuro','Rosso scuro','#652334']]) {
   const path = await source('Body',slug), colour = {slug:slug.replaceAll(' ','-'),name,sample,images:{},thumbnails:{}};
   for (const [id,view] of Object.entries(views)) {
     const cropped = sharp(path).extract(view.crop);

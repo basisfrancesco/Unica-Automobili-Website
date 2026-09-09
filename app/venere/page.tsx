@@ -5,37 +5,62 @@ import Link from "next/link";
 import { asset } from "../lib/assets";
 import "./venere.css";
 
-const details = [
-  { image:"/images/V3/web/front-light.webp", number:"01", title:"Uno sguardo netto", copy:"Elementi luminosi incastonati in una superficie scolpita, per uno sguardo immediatamente riconoscibile." },
-  { image:"/images/V3/web/side-vent.webp", number:"02", title:"Scarico laterale", copy:"Il V8 si fa sentire e diventa parte della forma: uno sfogo laterale integra funzione, suono e presenza." },
-  { image:"/images/V3/web/rear-light.webp", number:"03", title:"Una firma nella notte", copy:"La coda concentra tecnologia e carattere in un tratto immediatamente riconoscibile." },
+const perspectives = [
+  { image: "front-three-quarter", name: "Tre quarti anteriore", title: "Il primo incontro.", copy: "Bassa, larga, raccolta. La presenza di Venere nasce dalle proporzioni." },
+  { image: "side", name: "Profilo", title: "Una linea, nessuna interruzione.", copy: "Il cofano disteso, la cabina arretrata, la coda compatta. Ogni volume trova il proprio equilibrio." },
+  { image: "rear-three-quarter", name: "Tre quarti posteriore", title: "L’ultima impressione.", copy: "I rialzi dietro i sedili accompagnano lo sguardo verso la firma luminosa della coda." },
 ];
+const details = [
+  { image: "front-light", name: "Lo sguardo", title: "La luce prende forma.", copy: "Elementi luminosi racchiusi in una superficie scolpita. Un dettaglio tecnico che diventa espressione.", alt: "Dettaglio del faro anteriore della Venere blu" },
+  { image: "side-vent", name: "La voce", title: "Il suono ha una direzione.", copy: "Due terminali laterali, incastonati nel carbonio. Lo scarico entra nel disegno della vettura e ne dichiara il carattere.", alt: "Scarichi laterali e ruota anteriore della Venere" },
+  { image: "rear-light", name: "La firma", title: "Un cerchio di luce.", copy: "Il fanale posteriore emerge dai volumi della coda: una firma essenziale, riconoscibile anche da lontano.", alt: "Dettaglio del fanale circolare posteriore della Venere" },
+];
+const photo = (name: string) => asset(`/images/V3/web/${name}.webp`);
 
 export default function VenerePage() {
-  const [technical,setTechnical]=useState<"engine"|"gearbox">("engine");
-
-  return <main className="venere-page venere-editorial">
-    <section className="venere-cinematic"><img src={asset("/images/V3/web/side-dark.webp")} alt="Unica Venere"/><div className="model-hero-shade"/><div className="venere-title"><p>Unica Automobili · 01</p><img src={asset("/images/venere-wordmark.png")} alt="Venere"/><span>Gran Turismo, ricreata.</span></div><a href="#essenza" className="hero-scroll"><span/>Scopri Venere</a></section>
-
-    <section className="venere-essence" id="essenza" data-reveal><div className="vertical-note">Designed in Bergamo · Italy</div><div><p className="section-tag light">/ L’essenza</p><h1>Il fascino di una grande GT.<br/><em>La precisione di qualcosa di nuovo.</em></h1><p>Venere nasce dalla prima generazione Maserati GranTurismo e dal suo V8 4.7 aspirato costruito a Maranello. Ne conserva la voce e l’architettura, ma ne ripensa passo, massa, trasmissione e rapporto con il guidatore.</p></div></section>
-
-    <section className="venere-program" data-reveal><article><span>01</span><strong>Passo accorciato</strong><p>Proporzioni più raccolte e una risposta più immediata ai comandi.</p></article><article><span>02</span><strong>Massa ridotta</strong><p>Ogni componente viene valutato per togliere peso dove conta davvero.</p></article><article><span>03</span><strong>Scarico laterale</strong><p>Un percorso più diretto che rende visibile — e udibile — il V8.</p></article><article><span>04</span><strong>Manuale</strong><p>Sei rapporti, leva e frizione: il gesto torna al centro della guida.</p></article></section>
-
-    <section className="venere-profile" id="design" data-reveal><div className="profile-copy"><p className="section-tag light">/ Proporzione</p><h2>Potenza ferma.<br/><em>Anche da immobile.</em></h2><p>Cabina arretrata, cofano disteso, masse raccolte sulle ruote. Venere combina l’eleganza di una barchetta con la presenza di una moderna granturismo.</p></div><img src={asset("/images/V3/web/side.webp")} alt="Profilo di Unica Venere" loading="lazy" width="2200" height="1228"/></section>
-
-    <section className="detail-story"><div className="detail-head" data-reveal><p className="section-tag">/ Dettagli</p><h2>Disegnata<br/>fino all’ultimo <em>millimetro.</em></h2></div><div className="detail-grid">{details.map((detail,index)=><article className={`detail-card detail-${index+1}`} key={detail.image} data-reveal><div className="detail-image"><img src={asset(detail.image)} alt={detail.title} loading="lazy" width="1340" height="2400"/><span>{detail.number}</span></div><h3>{detail.title}</h3><p>{detail.copy}</p></article>)}</div></section>
-
-    <section className="venere-signatures" aria-labelledby="signature-title">
-      <div className="signature-copy" data-reveal><p className="section-tag">/ L’identità</p><h2 id="signature-title">Due segni.<br/><em>Una sola identità.</em></h2><p>Lo scudo sul cofano e il nome sulla coda. Due dettagli discreti, legati dalla stessa attenzione alla forma e alla materia.</p></div>
-      <figure data-reveal><img src={asset("/images/V3/web/front-logo.webp")} alt="Scudo Unica sul cofano della Venere" loading="lazy" width="2200" height="2200"/><figcaption><span>01 / Unica</span>Lo scudo sul cofano.</figcaption></figure>
-      <figure data-reveal><img src={asset("/images/V3/web/rear-logo.webp")} alt="Scritta Venere sulla carrozzeria posteriore metallizzata" loading="lazy" width="2200" height="2200"/><figcaption><span>02 / Venere</span>Il nome sulla coda.</figcaption></figure>
+  const [perspective, setPerspective] = useState(0);
+  const [detail, setDetail] = useState(0);
+  const [technical, setTechnical] = useState<"engine" | "gearbox">("engine");
+  const current = perspectives[perspective];
+  const selected = details[detail];
+  return <main className="v-story">
+    <section className="v-opening" aria-labelledby="venere-heading">
+      <div className="v-opening-copy"><p className="v-kicker">Unica Automobili / 01</p><h1 id="venere-heading">Venere<span>La forma del desiderio.</span></h1><p>Un’anima italiana.<br/>Una nuova libertà.</p></div>
+      <img className="v-opening-car" src={photo("front-three-quarter")} alt="Venere, vista completa a tre quarti anteriore" fetchPriority="high" width="2200" height="1228"/>
+      <div className="v-opening-bottom"><a href="#essenza">Scopri la sua storia <span aria-hidden="true">↓</span></a><span>V8 aspirato · Barchetta · Unica</span></div>
+      <span className="v-outline" aria-hidden="true">VENERE</span>
     </section>
 
-    <section className="technical-section"><div className="technical-head" data-reveal><p className="section-tag light">/ Sotto la pelle</p><h2>Meno massa. Più risposta.<br/><em>Più automobile.</em></h2></div><div className="technical-stage" data-reveal><div className="technical-visual"><img className={technical==="engine"?"active":""} src={asset("/images/venere/technical/engine.png")} alt="Motore V8 di Venere"/><img className={technical==="gearbox"?"active":""} src={asset("/images/venere/technical/gearbox.png")} alt="Cambio manuale di Venere"/></div><div className="technical-copy"><div className="technical-tabs"><button className={technical==="engine"?"active":""} onClick={()=>setTechnical("engine")}>01 · Motore</button><button className={technical==="gearbox"?"active":""} onClick={()=>setTechnical("gearbox")}>02 · Trasmissione</button></div>{technical==="engine"?<div><span className="tech-number">4.7</span><h3>V8 aspirato, affinato</h3><p>Il V8 costruito a Maranello viene riportato alla sua forma migliore e affinato con interventi mirati su respirazione, risposta e scarico. La potenza cresce quanto serve; il carattere rimane il vero dato da misurare.</p></div>:<div><span className="tech-number">6</span><h3>Rapporti. Tre pedali.</h3><p>La trasmissione MC Shift nasce come cambio elettroattuato a sei rapporti in configurazione transaxle. Venere ne ripensa l’azionamento per restituire al pilota leva, frizione e controllo diretto, insieme a un autobloccante calibrato sul nuovo equilibrio della vettura.</p></div>}</div></div></section>
+    <section className="v-origin" id="essenza">
+      <div className="v-origin-art" data-reveal><img src={photo("front-light")} alt="La luce anteriore incastonata nella carrozzeria blu" loading="lazy"/><span className="v-photo-note">01 / Disegnata per essere riconosciuta</span><img className="v-origin-seal" src={photo("front-logo")} alt="Scudo Unica sulla carrozzeria metallizzata" loading="lazy"/></div>
+      <div className="v-origin-copy" data-reveal><p className="v-kicker">L’essenza / Da Bergamo, Italia</p><h2>La memoria<br/>di una GT.<br/><em>L’istinto di<br/>qualcosa di nuovo.</em></h2><p>Venere nasce dalla prima generazione Maserati GranTurismo. Ne conserva il V8 4.7 aspirato costruito a Maranello e ne reinterpreta proporzioni, massa e rapporto con chi guida.</p><div className="v-origin-foot"><span>Passo accorciato.<br/>Masse raccolte.</span><span>Sei rapporti.<br/>Tre pedali.</span></div></div>
+    </section>
 
-    <section className="front-rear"><figure data-reveal><img src={asset("/images/V3/web/front-three-quarter.webp")} alt="Venere V3, vista a tre quarti anteriore" loading="lazy" width="2200" height="1228"/><figcaption><span>Front</span><p>Una presenza bassa, larga, priva di aggressività gratuita.</p></figcaption></figure><figure data-reveal><img src={asset("/images/V3/web/rear-three-quarter.webp")} alt="Venere V3, vista a tre quarti posteriore" loading="lazy" width="2200" height="1228"/><figcaption><span>Rear</span><p>Volumi pieni e una firma luminosa che chiude la forma.</p></figcaption></figure></section>
+    <section className="v-perspectives" id="design" aria-labelledby="perspective-heading">
+      <header data-reveal><p className="v-kicker">La forma / Cambia punto di vista</p><h2 id="perspective-heading">Si riconosce.<br/><em>Da ogni angolo.</em></h2></header>
+      <div className="v-perspective-controls" aria-label="Scegli la vista di Venere">{perspectives.map((item,i)=><button type="button" key={item.image} aria-pressed={perspective===i} onClick={()=>setPerspective(i)}><span>0{i+1}</span>{item.name}</button>)}</div>
+      <div className="v-car-turntable">{perspectives.map((item,i)=><img key={item.image} className={i===perspective?"is-current":""} src={photo(item.image)} alt={i===perspective?item.name:""} aria-hidden={i!==perspective} loading="lazy" width="2200" height="1228"/>)}</div>
+      <div className="v-view-caption" aria-live="polite"><span className="v-view-number">0{perspective+1}<small>/ 03</small></span><h3>{current.title}</h3><p>{current.copy}</p></div>
+    </section>
 
-    <section className="venere-config-entry" id="configuratore"><p className="section-tag light">/ Atelier digitale</p><h2>La tua interpretazione<br />di Venere.</h2><Link className="text-link" href="/configuratore/">Entra nel configuratore <span>↗</span></Link></section>
+    <section className="v-detail-experience" aria-labelledby="detail-heading">
+      <div className="v-detail-copy" data-reveal><p className="v-kicker">Avvicinati / I dettagli</p><h2 id="detail-heading">Il carattere<br/>è nelle <em>sfumature.</em></h2><div className="v-detail-controls" aria-label="Esplora i dettagli">{details.map((item,i)=><button type="button" key={item.image} onClick={()=>setDetail(i)} aria-pressed={detail===i}><span>0{i+1}</span>{item.name}<span aria-hidden="true">↗</span></button>)}</div><div className="v-detail-description" aria-live="polite"><h3>{selected.title}</h3><p>{selected.copy}</p></div></div>
+      <div className="v-detail-art"><span className="v-detail-number" aria-hidden="true">0{detail+1}</span>{details.map((item,i)=><img key={item.image} className={i===detail?"is-current":""} src={photo(item.image)} alt={i===detail?item.alt:""} aria-hidden={i!==detail} loading="lazy"/>)}</div>
+      <span className="v-edge-note" aria-hidden="true">Design · Ingegneria · Materia</span>
+    </section>
+
+    <section className="v-mechanics">
+      <div className="v-mechanics-heading" data-reveal><p className="v-kicker">Sotto la pelle / Il gesto di guidare</p><h2>Prima di tutto,<br/><em>un’automobile.</em></h2></div>
+      <div className="v-mechanics-layout"><div className="v-mechanics-image"><img src={asset(technical==="engine"?"/images/venere/technical/engine.png":"/images/venere/technical/gearbox.png")} alt={technical==="engine"?"Motore V8 di Venere":"Comando del cambio manuale"} loading="lazy"/></div><div className="v-mechanics-copy"><div className="v-mechanics-controls" aria-label="Esplora la meccanica"><button type="button" aria-pressed={technical==="engine"} onClick={()=>setTechnical("engine")}>01 / Motore</button><button type="button" aria-pressed={technical==="gearbox"} onClick={()=>setTechnical("gearbox")}>02 / Trasmissione</button></div><div aria-live="polite"><span className="v-mechanical-number">{technical==="engine"?"4.7":"6"}<small>{technical==="engine"?"V8 aspirato":"rapporti"}</small></span><h3>{technical==="engine"?"Una voce da conservare.":"Il controllo torna nelle mani."}</h3><p>{technical==="engine"?"Il V8 viene riportato alla sua forma migliore e affinato con interventi su respirazione, risposta e scarico. La potenza cresce quanto serve; il carattere rimane il vero dato da misurare.":"La trasmissione MC Shift a sei rapporti, in configurazione transaxle, viene ripensata nell’azionamento per restituire al pilota leva, frizione e controllo diretto."}</p></div></div></div>
+    </section>
+
+    <section className="v-signature-story">
+      <div className="v-signature-heading" data-reveal><p className="v-kicker">L’identità / Due segni, una storia</p><h2>Unica, nel nome.<br/><em>Venere, nell’anima.</em></h2></div>
+      <figure className="v-signature-front" data-reveal><img src={photo("front-logo")} alt="Lo scudo Unica sul cofano" loading="lazy"/><figcaption>La firma di chi la immagina.</figcaption></figure>
+      <figure className="v-signature-rear" data-reveal><img src={photo("rear-logo")} alt="Il nome Venere sulla coda" loading="lazy"/><figcaption>Il nome che ne racconta la forma.</figcaption></figure>
+      <p className="v-signature-note">Superfici, riflessi, piccoli segni.<br/>La stessa cura, a ogni distanza.</p>
+    </section>
+
+    <section className="v-finale" id="configuratore"><img src={photo("rear-three-quarter")} alt="Venere vista da dietro a tre quarti" loading="lazy" width="2200" height="1228"/><div><p className="v-kicker">Il prossimo capitolo / Il tuo</p><h2>Immaginala.<br/><em>Falla tua.</em></h2><Link href="/configuratore/">Configura la tua Venere <span aria-hidden="true">↗</span></Link></div></section>
   </main>;
 }
-
