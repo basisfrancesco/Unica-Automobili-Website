@@ -16,7 +16,14 @@ export const paints = [
 export const wheels = [
   { name: "Argento Satinato", slug: "argento-satinato", sample: "#b7b8b5", note: "Firma Venere" },
   { name: "Nero Satinato", slug: "nero-satinato", sample: "#242626", note: "Contrasto tecnico" },
-  { name: "Oro Champagne", slug: "oro-champagne", sample: "#a88a57", note: "Finitura atelier" },
+  { name: "Oro Champagne", slug: "oro-champagne", sample: "#b7a58b", note: "Metallo lucido" },
+  { name: "Bianco Puro", slug: "bianco-puro", sample: "#ffffff", note: "Verniciato lucido" },
+];
+
+export const exhausts = [
+  { name: "Acciaio Lucido", slug: "acciaio-lucido", sample: "#c9cccf", note: "Acciaio lucidato" },
+  { name: "Titanio", slug: "titanio", sample: "#858b93", note: "Grigio metallico" },
+  { name: "Nero Ceramico", slug: "nero-ceramico", sample: "#242729", note: "Rivestimento ceramico" },
 ];
 
 export const calipers = [

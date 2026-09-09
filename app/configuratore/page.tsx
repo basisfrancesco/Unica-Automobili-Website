@@ -3,18 +3,19 @@
 import Link from "next/link";
 import { useState, type CSSProperties } from "react";
 import VenerePreview, { type VenereConfiguration } from "../components/VenerePreview";
-import { paints, wheels, calipers, interiors } from "../lib/venere-config";
+import { paints, wheels, calipers, interiors, exhausts } from "../lib/venere-config";
 import { views, type Surface, type VenereView } from "../lib/venere-views";
 import "./configurator.css";
 
 const initialConfiguration: VenereConfiguration = {
-  paint: paints[0], wheels: wheels[0], calipers: calipers[4], interiors: interiors[0],
+  paint: paints[0], wheels: wheels[0], calipers: calipers[4], interiors: interiors[0], exhausts: exhausts[0],
 };
 const sections: { id: Surface; title: string; subtitle: string; options: { slug: string; name: string; sample: string; note?: string }[] }[] = [
   { id: "paint", title: "Carrozzeria", subtitle: "Il colore della tua Venere.", options: paints },
-  { id: "wheels", title: "Cerchi", subtitle: "Tre interpretazioni dello stesso disegno.", options: wheels },
+  { id: "wheels", title: "Cerchi", subtitle: "Finitura coordinata, fino al centro del cerchio.", options: wheels },
   { id: "calipers", title: "Pinze freno", subtitle: "Un accento tra le razze.", options: calipers },
   { id: "interiors", title: "Interni", subtitle: "Il tuo spazio, la tua materia.", options: interiors },
+  { id: "exhausts", title: "Scarichi", subtitle: "La finitura dei due terminali laterali.", options: exhausts },
 ];
 
 export default function ConfiguratorPage() {
@@ -47,7 +48,7 @@ export default function ConfiguratorPage() {
         <div className="studio-options" tabIndex={0} role="region" aria-label="Finiture e materiali, menu scorrevole">
           {sections.map((section, index) => <fieldset className="studio-section" key={section.id}>
             <legend><span>0{index + 1}</span>{section.title}</legend><p>{section.subtitle}</p>
-            {(section.id === "wheels" || section.id === "calipers") && view !== "side" &&
+            {(section.id === "wheels" || section.id === "calipers" || section.id === "exhausts") && view !== "side" &&
               <button className="studio-side-hint" type="button" onClick={() => setView("side")}>Osserva il dettaglio nella vista laterale ↗</button>}
             <div className={`studio-swatches studio-swatches-${section.id}`}>
               {section.options.map(option => <label key={option.slug} className={configuration[section.id].slug === option.slug ? "chosen" : ""}>

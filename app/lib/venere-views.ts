@@ -1,11 +1,11 @@
 export type VenereView = "side" | "front" | "rear";
-export type Surface = "paint" | "wheels" | "calipers" | "interiors";
+export type Surface = "paint" | "wheels" | "calipers" | "interiors" | "exhausts";
 export type Cutout = { paths: string[]; exclude?: string[]; intersect?: string[] };
 
 // All paths are in a 1376 × 768 coordinate system, exactly 1/4 of each HD source.
 // SVG scales the original 5504 × 3072 image and paths together, without resampling assets.
 export const views: { id: VenereView; label: string; box: string; source: string; surfaces: Surface[] }[] = [
-  { id: "side", label: "Laterale", box: "55 215 1290 390", source: "/images/configurator/V3/Master/side.png", surfaces: ["paint", "wheels", "calipers", "interiors"] },
+  { id: "side", label: "Laterale", box: "55 215 1290 390", source: "/images/configurator/V3/Master/side.png", surfaces: ["paint", "wheels", "calipers", "interiors", "exhausts"] },
   { id: "front", label: "Frontale", box: "95 45 1210 700", source: "/images/configurator/V3/Master/front.png", surfaces: ["paint", "interiors"] },
   { id: "rear", label: "Posteriore", box: "90 40 1190 715", source: "/images/configurator/V3/Master/rear.png", surfaces: ["paint", "interiors"] },
 ];
@@ -64,9 +64,7 @@ export const cutouts: Record<VenereView, Partial<Record<Surface, Cutout>>> = {
       "M529 322 Q536 316 568 315 L549 326 Q536 326 529 322 Z",
     ] },
     wheels: { paths: wheelOutlines, exclude: [...frontApertures, ...rearApertures,
-      // Keep center caps and the valve stems in their original finish.
-      "M314 459 C337 459 338 496 315 497 C290 497 290 460 314 459 Z",
-      "M1092 456 C1117 456 1117 495 1092 495 C1068 495 1067 457 1092 456 Z",
+      // The center caps share the wheel finish; only valve stems remain unchanged.
       "M311 545 L318 545 L319 551 L311 551 Z", "M1088 542 L1095 542 L1095 549 L1088 549 Z",
     ] },
     calipers: { paths: [
@@ -77,6 +75,13 @@ export const cutouts: Record<VenereView, Partial<Record<Surface, Cutout>>> = {
       // Each seat silhouette, not a polygon spanning the gap between seats.
       "M873 325 C873 312 887 298 898 286 C895 277 897 263 900 253 Q901 246 907 246 Q916 244 920 251 L921 268 C919 287 909 302 901 310 L889 322 Z",
       "M890 322 C896 313 908 301 916 289 C913 278 916 263 920 256 Q924 248 931 252 Q939 252 941 261 C944 279 937 298 927 310 L914 316 Z",
+    ] },
+    exhausts: { paths: [
+      fromCrop("M18 34 Q84 20 163 21 Q188 19 202 37 C225 64 251 105 272 138 Q276 145 261 148 L111 151 Q86 150 75 133 C53 100 33 65 18 34 Z", 475, 420, 4),
+      fromCrop("M83 157 Q155 143 262 150 Q277 151 289 173 C310 206 327 230 332 241 Q336 252 321 256 L171 268 Q136 267 123 249 C108 226 91 188 83 157 Z", 475, 420, 4),
+    ], exclude: [
+      fromCrop("M71 57 Q109 49 170 49 Q181 49 190 64 L225 112 Q228 119 217 120 L115 123 Q108 123 101 113 Z", 475, 420, 4),
+      fromCrop("M148 175 Q187 167 248 167 Q261 167 269 181 L298 229 Q303 240 293 241 L184 242 Q175 241 169 232 Z", 475, 420, 4),
     ] },
   },
   front: {

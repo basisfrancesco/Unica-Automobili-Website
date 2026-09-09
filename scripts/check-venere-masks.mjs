@@ -4,6 +4,8 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { cutouts, views } from '../app/lib/venere-views.ts';
+import { materialCurves } from '../app/lib/venere-materials.ts';
+import { paints, wheels, exhausts, calipers, interiors } from '../app/lib/venere-config.ts';
 const require = createRequire(import.meta.url);
 const sharp = require(process.env.VENERE_SHARP_MODULE || 'sharp');
 
@@ -17,9 +19,10 @@ function svgMask(geometry) {
 const probes = {
   side: {
     paint: { inside: [[750,400],[447,482],[944,480],[952,272],[311,370]], outside: [[510,451],[750,526],[317,477],[104,527],[584,311],[965,275],[1282,354],[50,300]] },
-    wheels: { inside: [[311,424],[1089,425],[238,480]], outside: [[315,477],[1092,477],[285,435],[1048,435],[218,477]] },
+    wheels: { inside: [[311,424],[1089,425],[238,480],[315,477],[1092,477]], outside: [[285,435],[1048,435],[218,477]] },
     calipers: { inside: [[363,487],[1040,480]], outside: [[315,477],[280,435],[341,462],[1089,425]] },
     interiors: { inside: [[909,264],[928,269]], outside: [[949,269],[850,280],[900,345]] },
+    exhausts: { inside: [[493,430],[509,458]], outside: [[511,442],[530,472],[565,457],[477,483]] },
   },
   front: {
     paint: { inside: [[705,350],[359,560],[170,400]], outside: [[700,550],[235,362],[1175,362],[706,443],[701,160],[194,650],[20,20]] },
@@ -59,5 +62,21 @@ for (const view of views) {
 // A caliper cannot cover a spoke; independent finish choices must not overwrite each other.
 for (let i=3; i<raster.side.wheels.length; i+=4) {
   assert(!(raster.side.wheels[i]>250 && raster.side.calipers[i]>250), 'Wheel/caliper surfaces overlap');
+  assert(!(raster.side.paint[i]>250 && raster.side.exhausts[i]>250), 'Paint/exhaust surfaces overlap');
 }
-console.log('PASS: 3 HD sources, 8 masks, protected-surface probes, no opaque wheel/caliper overlap.');
+console.log('PASS: 3 HD sources, 9 masks, coordinated wheel centers, protected exhaust openings, independent surfaces.');
+for (const [surface, finishes] of Object.entries({ paint: paints, wheels, exhausts, calipers, interiors })) {
+  for (const finish of finishes) {
+    for (const curve of materialCurves(surface, finish.sample)) {
+      const values = curve.split(' ').map(Number);
+      assert(values.every((v,i) => Number.isFinite(v) && v>=0 && v<=1 && (i===0 || v>=values[i-1])), `${surface}/${finish.slug}: invalid tonal curve`);
+      assert.equal(values[0], 0, 'Deep occlusion remains black');
+      assert.equal(values.at(-1), 1, 'Specular peak remains neutral white');
+    }
+  }
+}
+const whiteCurves = materialCurves('wheels', wheels.find(w=>w.slug==='bianco-puro').sample);
+assert(whiteCurves.every(curve=>curve===whiteCurves[0]), 'Pure white wheels must not have a colour cast');
+const whiteValues = whiteCurves[0].split(' ').map(Number);
+assert(whiteValues[16]>.85 && whiteValues[28]<whiteValues[30] && whiteValues[30]<1, 'White stays bright without clipping highlight detail');
+console.log('PASS: all finish curves preserve shading; pure white wheels are neutral and retain highlight detail.');
