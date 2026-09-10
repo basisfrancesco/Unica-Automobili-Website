@@ -22,7 +22,7 @@
   "colours": [
     {
       "slug": "argento",
-      "name": "Argento",
+      "name": "Argento di Luna",
       "sample": "#bebbc0",
       "images": {
         "side": "/images/configurator/V3/generated/body-argento-side-1490cf8bb0.webp",
@@ -37,7 +37,7 @@
     },
     {
       "slug": "blu",
-      "name": "Blu",
+      "name": "Blu Abisso",
       "sample": "#193e77",
       "images": {
         "side": "/images/configurator/V3/generated/body-blu-side-ba8aac8299.webp",
@@ -52,7 +52,7 @@
     },
     {
       "slug": "verde-inglese",
-      "name": "Verde inglese",
+      "name": "Verde Selva",
       "sample": "#183e31",
       "images": {
         "side": "/images/configurator/V3/generated/body-verde-inglese-side-a95821da70.webp",
@@ -67,7 +67,7 @@
     },
     {
       "slug": "arancione",
-      "name": "Arancione",
+      "name": "Arancio Vesuvio",
       "sample": "#d97525",
       "images": {
         "side": "/images/configurator/V3/generated/body-arancione-side-0bf04f3af7.webp",
@@ -82,22 +82,22 @@
     },
     {
       "slug": "azzurro",
-      "name": "Azzurro",
-      "sample": "#76aeca",
+      "name": "Azzurro Riviera",
+      "sample": "#76b3d4",
       "images": {
-        "side": "/images/configurator/V3/generated/body-azzurro-side-b16ff3d470.webp",
-        "front": "/images/configurator/V3/generated/body-azzurro-front-73534b4bd8.webp",
-        "rear": "/images/configurator/V3/generated/body-azzurro-rear-b675e32594.webp"
+        "side": "/images/configurator/V3/generated/body-azzurro-side-c623bf90a4.webp",
+        "front": "/images/configurator/V3/generated/body-azzurro-front-f512933fae.webp",
+        "rear": "/images/configurator/V3/generated/body-azzurro-rear-3b83fd757a.webp"
       },
       "thumbnails": {
-        "side": "/images/configurator/V3/generated/thumb-azzurro-side-d9d8c27b8d.webp",
-        "front": "/images/configurator/V3/generated/thumb-azzurro-front-f1d08d4396.webp",
-        "rear": "/images/configurator/V3/generated/thumb-azzurro-rear-62230ce46a.webp"
+        "side": "/images/configurator/V3/generated/thumb-azzurro-side-300c35d898.webp",
+        "front": "/images/configurator/V3/generated/thumb-azzurro-front-2c07ae5de3.webp",
+        "rear": "/images/configurator/V3/generated/thumb-azzurro-rear-9c7470ccdb.webp"
       }
     },
     {
       "slug": "rosso-scuro",
-      "name": "Rosso scuro",
+      "name": "Rosso Amarena",
       "sample": "#652334",
       "images": {
         "side": "/images/configurator/V3/generated/body-rosso-scuro-side-7fc86fed4b.webp",
@@ -109,6 +109,81 @@
         "front": "/images/configurator/V3/generated/thumb-rosso-scuro-front-fe277a7937.webp",
         "rear": "/images/configurator/V3/generated/thumb-rosso-scuro-rear-7f416040b4.webp"
       }
+    },
+    {
+      "slug": "bianco",
+      "name": "Bianco Dolomia",
+      "sample": "#f3f0ea",
+      "images": {
+        "side": "/images/configurator/V3/generated/body-bianco-side-03d4dbc839.webp",
+        "front": "/images/configurator/V3/generated/body-bianco-front-f93f41a1d6.webp",
+        "rear": "/images/configurator/V3/generated/body-bianco-rear-d84b8e3382.webp"
+      },
+      "thumbnails": {
+        "side": "/images/configurator/V3/generated/thumb-bianco-side-089227c164.webp",
+        "front": "/images/configurator/V3/generated/thumb-bianco-front-b456efb60e.webp",
+        "rear": "/images/configurator/V3/generated/thumb-bianco-rear-957bf6311b.webp"
+      }
+    },
+    {
+      "slug": "giallo",
+      "name": "Giallo Zafferano",
+      "sample": "#e5ba28",
+      "images": {
+        "side": "/images/configurator/V3/generated/body-giallo-side-02b2d099c5.webp",
+        "front": "/images/configurator/V3/generated/body-giallo-front-d78b4a6182.webp",
+        "rear": "/images/configurator/V3/generated/body-giallo-rear-c2f5125ea3.webp"
+      },
+      "thumbnails": {
+        "side": "/images/configurator/V3/generated/thumb-giallo-side-06f5ddeb29.webp",
+        "front": "/images/configurator/V3/generated/thumb-giallo-front-f4e2a4f40c.webp",
+        "rear": "/images/configurator/V3/generated/thumb-giallo-rear-82fe4e8842.webp"
+      }
+    },
+    {
+      "slug": "nero",
+      "name": "Nero Ossidiana",
+      "sample": "#17171b",
+      "images": {
+        "side": "/images/configurator/V3/generated/body-nero-side-ac7cf46d56.webp",
+        "front": "/images/configurator/V3/generated/body-nero-front-8accd3a2c0.webp",
+        "rear": "/images/configurator/V3/generated/body-nero-rear-0d7e53b9f1.webp"
+      },
+      "thumbnails": {
+        "side": "/images/configurator/V3/generated/thumb-nero-side-c4f799c75f.webp",
+        "front": "/images/configurator/V3/generated/thumb-nero-front-ea36ed13a9.webp",
+        "rear": "/images/configurator/V3/generated/thumb-nero-rear-105045bc8d.webp"
+      }
+    },
+    {
+      "slug": "oro",
+      "name": "Oro Pallido",
+      "sample": "#bfab8a",
+      "images": {
+        "side": "/images/configurator/V3/generated/body-oro-side-7706647b02.webp",
+        "front": "/images/configurator/V3/generated/body-oro-front-ac4838493f.webp",
+        "rear": "/images/configurator/V3/generated/body-oro-rear-35c1778049.webp"
+      },
+      "thumbnails": {
+        "side": "/images/configurator/V3/generated/thumb-oro-side-1e0674d3f3.webp",
+        "front": "/images/configurator/V3/generated/thumb-oro-front-a844c31f2f.webp",
+        "rear": "/images/configurator/V3/generated/thumb-oro-rear-5e8c43be92.webp"
+      }
+    },
+    {
+      "slug": "viola",
+      "name": "Viola Ametista",
+      "sample": "#582e68",
+      "images": {
+        "side": "/images/configurator/V3/generated/body-viola-side-4d618f0863.webp",
+        "front": "/images/configurator/V3/generated/body-viola-front-167881f15b.webp",
+        "rear": "/images/configurator/V3/generated/body-viola-rear-fa780ee612.webp"
+      },
+      "thumbnails": {
+        "side": "/images/configurator/V3/generated/thumb-viola-side-713d6589de.webp",
+        "front": "/images/configurator/V3/generated/thumb-viola-front-83bcd03d17.webp",
+        "rear": "/images/configurator/V3/generated/thumb-viola-rear-44ddaede69.webp"
+      }
     }
   ],
   "groups": [
@@ -118,7 +193,7 @@
       "options": [
         {
           "slug": "argento",
-          "name": "Argento",
+          "name": "Argento Vivo",
           "sample": "#bebbc0",
           "overlays": {
             "side": [
@@ -135,7 +210,7 @@
         },
         {
           "slug": "nero",
-          "name": "Nero",
+          "name": "Nero Grafite",
           "sample": "#252329",
           "overlays": {
             "side": [
@@ -152,7 +227,7 @@
         },
         {
           "slug": "oro",
-          "name": "Oro",
+          "name": "Oro Seta",
           "sample": "#b29865",
           "overlays": {
             "side": [
@@ -169,7 +244,7 @@
         },
         {
           "slug": "bianco",
-          "name": "Bianco",
+          "name": "Bianco Gesso",
           "sample": "#ffffff",
           "overlays": {
             "side": [
@@ -192,17 +267,17 @@
       "options": [
         {
           "slug": "nero",
-          "name": "Nero",
+          "name": "Nero Inchiostro",
           "sample": "#252329",
           "overlays": {
             "side": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-nero-side-6f5d319f12.webp",
+                "src": "/images/configurator/V3/generated/interior-nero-side-8fb6a3d139.webp",
                 "x": 505.27039413382215,
-                "y": 26.12282309807516,
-                "width": 191.33822181484877,
-                "height": 69.43171402383135
+                "y": 24.747937671860676,
+                "width": 191.79651695692024,
+                "height": 70.80659945004582
               }
             ],
             "front": [
@@ -218,28 +293,28 @@
             "rear": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-nero-rear-c25c2bd08a.webp",
-                "x": 237.71929824561403,
+                "src": "/images/configurator/V3/generated/interior-nero-rear-553e03b944.webp",
+                "x": 274.12280701754383,
                 "y": 30.26315789473684,
-                "width": 526.3157894736842,
-                "height": 63.1578947368421
+                "width": 462.2807017543859,
+                "height": 51.315789473684205
               }
             ]
           }
         },
         {
           "slug": "bianco",
-          "name": "Bianco",
+          "name": "Bianco Neve",
           "sample": "#f4f0e9",
           "overlays": {
             "side": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-bianco-side-b3bdc67fa6.webp",
+                "src": "/images/configurator/V3/generated/interior-bianco-side-8a7a9d6f59.webp",
                 "x": 505.27039413382215,
-                "y": 26.12282309807516,
-                "width": 191.33822181484877,
-                "height": 69.43171402383135
+                "y": 24.747937671860676,
+                "width": 191.79651695692024,
+                "height": 70.80659945004582
               }
             ],
             "front": [
@@ -255,28 +330,28 @@
             "rear": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-bianco-rear-6d481d0e99.webp",
-                "x": 237.71929824561403,
+                "src": "/images/configurator/V3/generated/interior-bianco-rear-5eee6bc0b7.webp",
+                "x": 274.12280701754383,
                 "y": 30.26315789473684,
-                "width": 526.3157894736842,
-                "height": 63.1578947368421
+                "width": 462.2807017543859,
+                "height": 51.315789473684205
               }
             ]
           }
         },
         {
           "slug": "blu",
-          "name": "Blu",
+          "name": "Blu Notte",
           "sample": "#334d78",
           "overlays": {
             "side": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-blu-side-e0323c54ec.webp",
+                "src": "/images/configurator/V3/generated/interior-blu-side-476f4849d1.webp",
                 "x": 505.27039413382215,
-                "y": 26.12282309807516,
-                "width": 191.33822181484877,
-                "height": 69.43171402383135
+                "y": 24.747937671860676,
+                "width": 191.79651695692024,
+                "height": 70.80659945004582
               }
             ],
             "front": [
@@ -292,28 +367,28 @@
             "rear": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-blu-rear-ffbe9dce91.webp",
-                "x": 237.71929824561403,
+                "src": "/images/configurator/V3/generated/interior-blu-rear-fe8f449b99.webp",
+                "x": 274.12280701754383,
                 "y": 30.26315789473684,
-                "width": 526.3157894736842,
-                "height": 63.1578947368421
+                "width": 462.2807017543859,
+                "height": 51.315789473684205
               }
             ]
           }
         },
         {
           "slug": "marrone",
-          "name": "Marrone",
+          "name": "Cuoio Castagna",
           "sample": "#825236",
           "overlays": {
             "side": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-marrone-side-47b53d490b.webp",
+                "src": "/images/configurator/V3/generated/interior-marrone-side-144e555081.webp",
                 "x": 505.27039413382215,
-                "y": 26.12282309807516,
-                "width": 191.33822181484877,
-                "height": 69.43171402383135
+                "y": 24.747937671860676,
+                "width": 191.79651695692024,
+                "height": 70.80659945004582
               }
             ],
             "front": [
@@ -329,28 +404,28 @@
             "rear": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-marrone-rear-b5dc294794.webp",
-                "x": 237.71929824561403,
+                "src": "/images/configurator/V3/generated/interior-marrone-rear-0f688330fe.webp",
+                "x": 274.12280701754383,
                 "y": 30.26315789473684,
-                "width": 526.3157894736842,
-                "height": 63.1578947368421
+                "width": 462.2807017543859,
+                "height": 51.315789473684205
               }
             ]
           }
         },
         {
           "slug": "panna",
-          "name": "Panna",
+          "name": "Panna Avorio",
           "sample": "#e6d5b5",
           "overlays": {
             "side": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-panna-side-3f08cd2de1.webp",
+                "src": "/images/configurator/V3/generated/interior-panna-side-a167798596.webp",
                 "x": 505.27039413382215,
-                "y": 26.12282309807516,
-                "width": 191.33822181484877,
-                "height": 69.43171402383135
+                "y": 24.747937671860676,
+                "width": 191.79651695692024,
+                "height": 70.80659945004582
               }
             ],
             "front": [
@@ -366,11 +441,122 @@
             "rear": [
               {
                 "id": "interior",
-                "src": "/images/configurator/V3/generated/interior-panna-rear-a40ebdb0b9.webp",
-                "x": 237.71929824561403,
+                "src": "/images/configurator/V3/generated/interior-panna-rear-63c90a1bea.webp",
+                "x": 274.12280701754383,
                 "y": 30.26315789473684,
-                "width": 526.3157894736842,
-                "height": 63.1578947368421
+                "width": 462.2807017543859,
+                "height": 51.315789473684205
+              }
+            ]
+          }
+        },
+        {
+          "slug": "arancio",
+          "name": "Arancio Ambra",
+          "sample": "#c57537",
+          "overlays": {
+            "side": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-arancio-side-3d244d5b7f.webp",
+                "x": 505.27039413382215,
+                "y": 24.747937671860676,
+                "width": 191.79651695692024,
+                "height": 70.80659945004582
+              }
+            ],
+            "front": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-arancio-front-88a79694f8.webp",
+                "x": 204.70786044556536,
+                "y": 37.83102143757881,
+                "width": 587.2215216477512,
+                "height": 119.37788986969315
+              }
+            ],
+            "rear": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-arancio-rear-2b979ea803.webp",
+                "x": 274.12280701754383,
+                "y": 30.26315789473684,
+                "width": 462.2807017543859,
+                "height": 51.315789473684205
+              }
+            ]
+          }
+        },
+        {
+          "slug": "bordeaux",
+          "name": "Rosso Granata",
+          "sample": "#652936",
+          "overlays": {
+            "side": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-bordeaux-side-730aeb7665.webp",
+                "x": 505.27039413382215,
+                "y": 24.747937671860676,
+                "width": 191.79651695692024,
+                "height": 70.80659945004582
+              }
+            ],
+            "front": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-bordeaux-front-4430b4dc2f.webp",
+                "x": 204.70786044556536,
+                "y": 37.83102143757881,
+                "width": 587.2215216477512,
+                "height": 119.37788986969315
+              }
+            ],
+            "rear": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-bordeaux-rear-5f9ef153c4.webp",
+                "x": 274.12280701754383,
+                "y": 30.26315789473684,
+                "width": 462.2807017543859,
+                "height": 51.315789473684205
+              }
+            ]
+          }
+        },
+        {
+          "slug": "grigio",
+          "name": "Grigio Pietra",
+          "sample": "#93918e",
+          "overlays": {
+            "side": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-grigio-side-f4f142dd0e.webp",
+                "x": 505.27039413382215,
+                "y": 24.747937671860676,
+                "width": 191.79651695692024,
+                "height": 70.80659945004582
+              }
+            ],
+            "front": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-grigio-front-5c8234626b.webp",
+                "x": 204.70786044556536,
+                "y": 37.83102143757881,
+                "width": 587.2215216477512,
+                "height": 119.37788986969315
+              }
+            ],
+            "rear": [
+              {
+                "id": "interior",
+                "src": "/images/configurator/V3/generated/interior-grigio-rear-3065cdce44.webp",
+                "x": 274.12280701754383,
+                "y": 30.26315789473684,
+                "width": 462.2807017543859,
+                "height": 51.315789473684205
               }
             ]
           }
@@ -383,7 +569,7 @@
       "options": [
         {
           "slug": "argento",
-          "name": "Argento",
+          "name": "Argento Tecnico",
           "sample": "#bebbc0",
           "overlays": {
             "side": [
@@ -400,7 +586,7 @@
         },
         {
           "slug": "giallo",
-          "name": "Giallo",
+          "name": "Giallo Corsa",
           "sample": "#e9c920",
           "overlays": {
             "side": [
@@ -417,7 +603,7 @@
         },
         {
           "slug": "nero",
-          "name": "Nero",
+          "name": "Nero Grafite",
           "sample": "#252329",
           "overlays": {
             "side": [
@@ -434,13 +620,47 @@
         },
         {
           "slug": "rosso",
-          "name": "Rosso",
+          "name": "Rosso Fiamma",
           "sample": "#bb2633",
           "overlays": {
             "side": [
               {
                 "id": "calipers",
                 "src": "/images/configurator/V3/generated/calipers-rosso-side-3df3fe53dc.webp",
+                "x": 232.81393217231897,
+                "y": 169.79835013748854,
+                "width": 549.4958753437213,
+                "height": 76.5352887259395
+              }
+            ]
+          }
+        },
+        {
+          "slug": "bianco",
+          "name": "Bianco Ghiaccio",
+          "sample": "#f7f6f2",
+          "overlays": {
+            "side": [
+              {
+                "id": "calipers",
+                "src": "/images/configurator/V3/generated/calipers-bianco-side-c46b19e64d.webp",
+                "x": 232.81393217231897,
+                "y": 169.79835013748854,
+                "width": 549.4958753437213,
+                "height": 76.5352887259395
+              }
+            ]
+          }
+        },
+        {
+          "slug": "blu",
+          "name": "Blu Elettrico",
+          "sample": "#315cbb",
+          "overlays": {
+            "side": [
+              {
+                "id": "calipers",
+                "src": "/images/configurator/V3/generated/calipers-blu-side-6048f485f6.webp",
                 "x": 232.81393217231897,
                 "y": 169.79835013748854,
                 "width": 549.4958753437213,
@@ -457,51 +677,85 @@
       "options": [
         {
           "slug": "argento",
-          "name": "Argento",
+          "name": "Argento Vivo",
           "sample": "#bebbc0",
           "overlays": {
             "side": [
               {
                 "id": "exhaust",
-                "src": "/images/configurator/V3/generated/exhaust-argento-side-fe73ab19fa.webp",
-                "x": 331.57653528872595,
+                "src": "/images/configurator/V3/generated/exhaust-argento-side-32d6f57bd1.webp",
+                "x": 331.3473877176902,
                 "y": 167.96516956920257,
-                "width": 62.328139321723185,
-                "height": 52.24564619615032
+                "width": 63.47387717690192,
+                "height": 52.933088909257556
               }
             ]
           }
         },
         {
           "slug": "nero",
-          "name": "Nero",
+          "name": "Nero Fumo",
           "sample": "#252329",
           "overlays": {
             "side": [
               {
                 "id": "exhaust",
-                "src": "/images/configurator/V3/generated/exhaust-nero-side-891c0ca406.webp",
-                "x": 331.57653528872595,
+                "src": "/images/configurator/V3/generated/exhaust-nero-side-e7f6a695b8.webp",
+                "x": 331.3473877176902,
                 "y": 167.96516956920257,
-                "width": 62.328139321723185,
-                "height": 52.24564619615032
+                "width": 63.47387717690192,
+                "height": 52.933088909257556
               }
             ]
           }
         },
         {
           "slug": "titanio",
-          "name": "Titanio",
+          "name": "Titanio Aurora",
           "sample": "#496c9f",
           "overlays": {
             "side": [
               {
                 "id": "exhaust",
-                "src": "/images/configurator/V3/generated/exhaust-titanio-side-27cfb23464.webp",
-                "x": 331.57653528872595,
+                "src": "/images/configurator/V3/generated/exhaust-titanio-side-6fb1acd0ac.webp",
+                "x": 331.3473877176902,
                 "y": 167.96516956920257,
-                "width": 62.328139321723185,
-                "height": 52.24564619615032
+                "width": 63.47387717690192,
+                "height": 52.933088909257556
+              }
+            ]
+          }
+        },
+        {
+          "slug": "ceramica",
+          "name": "Ceramica Antracite",
+          "sample": "#454344",
+          "overlays": {
+            "side": [
+              {
+                "id": "exhaust",
+                "src": "/images/configurator/V3/generated/exhaust-ceramica-side-96f479dcad.webp",
+                "x": 331.3473877176902,
+                "y": 167.96516956920257,
+                "width": 63.47387717690192,
+                "height": 52.933088909257556
+              }
+            ]
+          }
+        },
+        {
+          "slug": "oro",
+          "name": "Oro Caldo",
+          "sample": "#bb986a",
+          "overlays": {
+            "side": [
+              {
+                "id": "exhaust",
+                "src": "/images/configurator/V3/generated/exhaust-oro-side-cdb86bb156.webp",
+                "x": 331.3473877176902,
+                "y": 167.96516956920257,
+                "width": 63.47387717690192,
+                "height": 52.933088909257556
               }
             ]
           }

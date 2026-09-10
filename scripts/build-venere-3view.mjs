@@ -22,18 +22,32 @@ for (const view of Object.values(views)) {
 }
 const wheelShape = '<ellipse cx="368.5" cy="281.8" rx="74.4" ry="74.8"/><ellipse cx="1047.5" cy="279.2" rx="74.4" ry="75.2"/>';
 const interiorShapes = {
-  side: '<path d="M706 153 L716 129 Q722 131 731 132 L730 128 Q728 123 733 122 Q737 121 740 128 L745 133 Q815 139 859 124 Q876 118 879 110 Q877 91 881 82 Q886 74 893 79 L899 84 Q907 80 913 86 Q918 88 918 98 L916 115 Q910 127 902 135 Q873 148 843 150 L747 154 Z"/>',
+  side: `<path d="M706 153 L716 129 Q722 131 731 132 L730 128 Q728 123 733 122 Q737 121 740 128 L745 133 Q815 139 859 124 Q870 121 878 116 C875 105 877 90 880 83 Q883 76 889 79 Q894 79 897 84 Q904 81 910 84 Q917 84 918 94 Q920 116 914 132 Q896 142 873 147 L843 151 L747 154 Z"/><g transform="scale(${1/scale})"><path d="M3448 460 C3442 415 3444 340 3458 307 Q3472 292 3495 300 Q3530 303 3542 322 Q3560 315 3590 320 Q3615 329 3610 375 L3610 460 Z"/></g>`,
   front: '<path d="M179 515 Q197 486 222 454 Q249 446 284 445 L328 444 Q354 442 382 444 Q455 444 481 452 Q509 480 534 515 Q466 512 400 513 L307 514 Z"/>',
   // Only the interior behind the roll hoops, never the painted rear fairings.
-  rear: '<path d="M902 467 Q919 451 940 451 Q961 449 969 461 L972 465 Q940 463 917 467 L898 472 Z M1128 465 L1134 457 Q1151 447 1174 453 Q1193 457 1203 470 L1193 467 Q1165 463 1128 465 Z M972 437 Q1050 434 1129 437 L1125 445 Q1096 442 1074 448 L1071 460 Q1069 465 1062 465 L1040 465 Q1033 465 1031 460 L1028 449 Q1002 443 980 446 Z"/>',
+  rear: `<g transform="scale(${1/scale})"><path d="M3613 1819 C3632 1785 3655 1775 3699 1775 C3747 1772 3776 1784 3802 1813 C3740 1807 3677 1811 3613 1819 Z"/><path transform="translate(8280 0) scale(-1 1)" d="M3613 1819 C3632 1785 3655 1775 3699 1775 C3747 1772 3776 1784 3802 1813 C3740 1807 3677 1811 3613 1819 Z"/></g><path d="M972 437 Q1050 434 1129 437 L1125 445 Q1096 442 1074 448 L1071 460 Q1069 465 1062 465 L1040 465 Q1033 465 1031 460 L1028 449 Q1002 443 980 446 Z"/>`, 
 };
-const exhaustShape = `<g transform="translate(${2000/scale} ${900/scale}) scale(${1/scale})"><path d="M18 37 Q15 29 32 27 L146 22 Q165 22 178 38 L229 112 Q239 132 211 136 L100 144 Q75 145 65 128 Z M79 148 Q72 136 98 133 L210 128 Q231 126 244 146 L284 211 Q298 234 268 240 L156 249 Q130 251 120 232 Z"/></g>`;
+// Shared outline includes the outer metal lip, not just the bright inner edge.
+const exhaustShape = `<g transform="translate(${1970/scale} ${890/scale}) scale(${1/scale})"><path d="M47 50 Q46 40 63 38 L177 33 Q197 32 213 53 L319 216 Q330 239 309 249 L175 262 Q138 268 122 239 L49 69 Q46 58 47 50 Z"/></g>`;
 const groups = [
-  { id:'wheels', label:'Cerchi', folder:'Cerchi', shapes:{side:wheelShape}, options:[['argento','Argento','#bebbc0'],['nero','Nero','#252329'],['oro','Oro','#b29865'],['bianco','Bianco','#ffffff']] },
-  { id:'interior', label:'Interni', folder:'Interni', shapes:interiorShapes, options:[['nero','Nero','#252329'],['bianco','Bianco','#f4f0e9'],['blu','Blu','#334d78'],['marrone','Marrone','#825236'],['panna','Panna','#e6d5b5']] },
-  { id:'calipers', label:'Pinze', folder:'pinze', shapes:{side:'calipers'}, options:[['argento','Argento','#bebbc0'],['giallo','Giallo','#e9c920'],['nero','Nero','#252329'],['rosso','Rosso','#bb2633']] },
-  { id:'exhaust', label:'Scarichi', folder:'scarichi', shapes:{side:exhaustShape}, options:[['argento','Argento','#bebbc0'],['nero','Nero','#252329'],['titanio','Titanio','#496c9f']] },
+  { id:'wheels', label:'Cerchi', folder:'Cerchi', shapes:{side:wheelShape}, options:[['argento','Argento Vivo','#bebbc0'],['nero','Nero Grafite','#252329'],['oro','Oro Seta','#b29865'],['bianco','Bianco Gesso','#ffffff']] },
+  { id:'interior', label:'Interni', folder:'Interni', shapes:interiorShapes, options:[['nero','Nero Inchiostro','#252329'],['bianco','Bianco Neve','#f4f0e9'],['blu','Blu Notte','#334d78'],['marrone','Cuoio Castagna','#825236'],['panna','Panna Avorio','#e6d5b5'],['arancio','Arancio Ambra','#c57537'],['bordeaux','Rosso Granata','#652936'],['grigio','Grigio Pietra','#93918e']] },
+  { id:'calipers', label:'Pinze', folder:'pinze', shapes:{side:'calipers'}, options:[['argento','Argento Tecnico','#bebbc0'],['giallo','Giallo Corsa','#e9c920'],['nero','Nero Grafite','#252329'],['rosso','Rosso Fiamma','#bb2633'],['bianco','Bianco Ghiaccio','#f7f6f2'],['blu','Blu Elettrico','#315cbb']] },
+  { id:'exhaust', label:'Scarichi', folder:'scarichi', shapes:{side:exhaustShape}, options:[['argento','Argento Vivo','#bebbc0'],['nero','Nero Fumo','#252329'],['titanio','Titanio Aurora','#496c9f'],['ceramica','Ceramica Antracite','#454344'],['oro','Oro Caldo','#bb986a']] },
 ];
+const bodyColours = [
+  ['argento','Argento di Luna','#bebbc0'],['blu','Blu Abisso','#193e77'],
+  ['verde inglese','Verde Selva','#183e31'],['arancione','Arancio Vesuvio','#d97525'],
+  ['azzurro','Azzurro Riviera','#76b3d4'],['rosso scuro','Rosso Amarena','#652334'],
+  ['bianco','Bianco Dolomia','#f3f0ea'],['giallo','Giallo Zafferano','#e5ba28'],
+  ['nero','Nero Ossidiana','#17171b'],['oro','Oro Pallido','#bfab8a'],['viola','Viola Ametista','#582e68'],
+];
+// Fail loudly when a supplied finish was forgotten or renamed.
+for (const [folder,options] of [['Body',bodyColours],...groups.map(g=>[g.folder,g.options])]) {
+  const supplied=(await readdir(`${root}/${folder}`)).filter(f=>f.toLowerCase().endsWith('.png')).map(f=>f.slice(0,-4));
+  const registered=options.map(o=>o[0]);
+  if(supplied.some(f=>!registered.includes(f))||registered.some(f=>!supplied.includes(f))) throw new Error(`Catalogue differs from source folder: ${folder}`);
+}
 const manifest = { views: Object.entries(views).map(([id,v])=>({id,label:v.label,framing:`0 0 1000 ${v.height}`,height:v.height})), colours:[], groups:[] };
 let bytes = 0;
 const generated = new Set();
@@ -50,7 +64,7 @@ async function source(folder, name) {
   if (meta.width !== 5504 || meta.height !== 3072) throw new Error(`Unexpected sheet size: ${path}`);
   return path;
 }
-for (const [slug,name,sample] of [['argento','Argento','#bebbc0'],['blu','Blu','#193e77'],['verde inglese','Verde inglese','#183e31'],['arancione','Arancione','#d97525'],['azzurro','Azzurro','#76aeca'],['rosso scuro','Rosso scuro','#652334']]) {
+for (const [slug,name,sample] of bodyColours) {
   const path = await source('Body',slug), colour = {slug:slug.replaceAll(' ','-'),name,sample,images:{},thumbnails:{}};
   for (const [id,view] of Object.entries(views)) {
     const cropped = sharp(path).extract(view.crop);
