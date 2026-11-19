@@ -79,10 +79,10 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     <div className={menuOpen ? "mobile-menu open" : "mobile-menu"}>
       <div className="mobile-menu-kicker">Unica Automobili · Italia</div>
       <div className="mobile-links"><Link href="/">Home</Link><Link href="/venere/"><small>01</small><img src={asset("/images/venere-wordmark.png")} alt="Venere" /></Link><Link href="/breadvan/"><small>02</small><img src={asset("/images/breadvan-wordmark.png")} alt="Breadvan" /></Link><Link href="/configuratore/">Configura Venere</Link><Link href="/chi-siamo/">Chi siamo</Link><Link href="/atelier/">Atelier</Link></div>
-      <a className="mobile-contact" href="mailto:atelier@unicaautomobili.it">atelier@unicaautomobili.it ↗</a>
+      <a className="mobile-contact" href="mailto:unica.automobili@gmail.com">unica.automobili@gmail.com ↗</a>
     </div>
 
     {children}
-    {!isConfigurator && <footer id="contatti"><div className="footer-top"><div><p className="section-tag light">/ Inizia il tuo progetto</p><h2>Creiamo qualcosa<br />di <em>irripetibile.</em></h2></div><a href="mailto:atelier@unicaautomobili.it">atelier@unicaautomobili.it <span>↗</span></a></div><div className="footer-bottom"><div className="brand footer-brand"><img src={asset("/images/unica-logo.jpeg")} alt="" /><span>UNICA <small>AUTOMOBILI</small></span></div><p>Carrozzeria contemporanea italiana.</p><div><Link href="/chi-siamo/">Chi siamo</Link><Link href="/atelier/">Atelier</Link></div><p>© {new Date().getFullYear()} Unica Automobili</p></div></footer>}
+    {!isConfigurator && <footer id="contatti"><div className="footer-top"><div><p className="section-tag light">/ Inizia il tuo progetto</p><h2>Creiamo qualcosa<br />di <em>irripetibile.</em></h2></div><a href="mailto:unica.automobili@gmail.com">unica.automobili@gmail.com <span>↗</span></a></div><div className="footer-bottom"><div className="brand footer-brand"><img src={asset("/images/unica-logo.jpeg")} alt="" /><span>UNICA <small>AUTOMOBILI</small></span></div><p>Carrozzeria contemporanea italiana.</p><div><Link href="/chi-siamo/">Chi siamo</Link><Link href="/atelier/">Atelier</Link></div><p>© {new Date().getFullYear()} Unica Automobili</p></div></footer>}
   </>;
 }
