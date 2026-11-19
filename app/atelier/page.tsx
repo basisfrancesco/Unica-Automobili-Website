@@ -11,6 +11,6 @@ export default function AtelierPage() {
       <article data-reveal><div className="process-number">04</div><div><span>Consegna</span><h3>Il primo viaggio<br/>inizia molto prima.</h3></div><p>Quando l’automobile è pronta, conosci già ogni scelta e ogni passaggio che l’ha resa tua. La consegna non conclude il rapporto: lo porta sulla strada.</p></article>
     </section>
     <section className="material-band"><div data-reveal><span>Design</span><i/><span>Engineering</span><i/><span>Coachbuilding</span></div><h2 data-reveal>Non esistono due<br/><em>Unica uguali.</em></h2></section>
-    <section className="contact-studio" id="contatti"><p className="section-tag">/ Il tuo progetto</p><div><h2>Raccontaci<br/>la tua idea.</h2><a href="mailto:atelier@unicaautomobili.it">atelier@unicaautomobili.it <span>↗</span></a></div></section>
+    <section className="contact-studio" id="contatti"><p className="section-tag">/ Il tuo progetto</p><div><h2>Raccontaci<br/>la tua idea.</h2><a href="mailto:unica.automobili@gmail.com">unica.automobili@gmail.com <span>↗</span></a></div></section>
   </main>;
 }
