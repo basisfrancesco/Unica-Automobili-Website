@@ -74,7 +74,7 @@ export default function ConfiguratorPage() {
           </section>
         </div>
         <div className="studio-actions"><button type="button" onClick={() => { setColourIndex(0); setSelection({}); setViewId("side"); }}>Ripristina</button>
-          <a href={`mailto:atelier@unicaautomobili.it?subject=${encodeURIComponent("La mia Venere")}&body=${encodeURIComponent(`Vorrei approfondire la Venere in colore ${colour.name}. ${description}.`)}`}>Parlane con l’atelier <span aria-hidden="true">↗</span></a>
+          <a href={`mailto:unica.automobili@gmail.com?subject=${encodeURIComponent("La mia Venere")}&body=${encodeURIComponent(`Vorrei approfondire la Venere in colore ${colour.name}. ${description}.`)}`}>Parlane con l’atelier <span aria-hidden="true">↗</span></a>
         </div>
       </aside>
     </div>
