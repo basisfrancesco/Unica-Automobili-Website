@@ -37,7 +37,7 @@ export default function VenereTransformation() {
       <div className="vt-original">
         <img src={asset("/images/venere/granturismo-original-side.webp")} alt="Maserati GranTurismo originale, profilo laterale" loading="lazy"/>
       </div>
-      <div className="vt-after" style={{clipPath:`inset(0 ${100 - position}% 0 0)`}} aria-hidden="true">
+      <div className="vt-after" style={{clipPath:`inset(0 0 0 ${position}%)`}} aria-hidden="true">
         <VenereRender source={silver.images.side} framing={side.framing} height={side.height} label="Venere, profilo laterale nel configuratore" overlays={selectedOverlays({}, "side")} />
       </div>
       <span className="vt-divider" style={{left:`${position}%`}} aria-hidden="true"><span>‹ ›</span></span>
@@ -46,7 +46,7 @@ export default function VenereTransformation() {
     </div>
     <div className="vt-range">
       <label htmlFor="venere-transformation-range">Confronta le due silhouette</label>
-      <input id="venere-transformation-range" type="range" min={0} max={100} value={Math.round(position)} onChange={event=>setPosition(Number(event.target.value))} aria-valuetext={`${Math.round(position)}% Venere visibile`}/>
+      <input id="venere-transformation-range" type="range" min={0} max={100} value={Math.round(position)} onChange={event=>setPosition(Number(event.target.value))} aria-valuetext={`${Math.round(100 - position)}% Venere visibile`}/>
       <span>Trascina o sposta il cursore</span>
     </div>
     <p className="vt-footnote">Confronto visivo tra la vettura originale e un render di progetto della Venere; le modifiche rappresentate sono concettuali.</p>
